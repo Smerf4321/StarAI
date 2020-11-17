@@ -12,6 +12,6 @@ package player;
 public class HumanPlayer extends Player{
     
     public HumanPlayer(){
-        this.humanity = true;
+        this.computer = false;
     }
 }

@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package starai;
+package mechanics;
 
 /**
  *
  * @author Patryk
  */
-public enum GameStates {
+public enum GameState {
     ACTIVE,
     HUMAN_WIN,
     COMPUTER_WIN,

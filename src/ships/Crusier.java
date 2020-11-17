@@ -17,6 +17,6 @@ public class Crusier extends Ship{
     static int damage = 1;
     
     public Crusier(boolean computer) {
-        super(computer, Crusier.maxHealth);
+        super(computer, Crusier.maxHealth, Crusier.damage);
     }
 }

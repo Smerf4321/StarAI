@@ -16,6 +16,6 @@ public class Carrier extends Ship{
     static int damage = 1;
 
     public Carrier(boolean computer) {
-        super(computer, Carrier.maxHealth);
+        super(computer, Carrier.maxHealth, Carrier.damage);
     }
 }

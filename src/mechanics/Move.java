@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package starai;
+package mechanics;
 
 import board.Spot;
 import player.Player;
@@ -25,5 +25,13 @@ public class Move {
         this.start = start; 
         this.end = end; 
         this.shipMoved = start.getShip(); 
+    }
+    
+    public Spot getStart(){
+        return this.start;
+    }
+    
+    public Spot getEnd(){
+        return this.end;
     }
 }

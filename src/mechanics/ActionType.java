@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package player;
+package mechanics;
 
 /**
  *
  * @author Patryk
  */
-public class ComputerPlayer extends Player{
-    
-    public ComputerPlayer(){
-        this.computer = true;
-    }
+public enum ActionType {
+    MOVE,
+    ATTACK,
+    REPAIR
 }

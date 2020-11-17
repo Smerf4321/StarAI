@@ -19,6 +19,7 @@ public abstract class Ship {
     private int currentHealth;
     private int movementRange;
     private int weaponsRange;
+    private int weaponsDamage;
     
     //boolean that define whether the ship have acted this turn
     private boolean haveActed = false;
@@ -27,19 +28,37 @@ public abstract class Ship {
      * Abstract constructor for ship
      * @param computer is ship controlled by computer
      * @param maxHealth max health of the ship
+     * @param weaponsDamage damage dealt by the ship
      */
-    public Ship (boolean computer, int maxHealth){
+    public Ship (boolean computer, int maxHealth, int weaponsDamage){
         this.computer = computer;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
+        this.weaponsDamage = weaponsDamage;
     }
     
     public void setComputer (boolean computer){
         this.computer = computer;
     }
     
+    public boolean isComputer (){
+        return this.computer;
+    }
+    
     public int getHealth(){
         return currentHealth;
+    }
+    
+    public int getMovementRange(){
+        return this.movementRange;
+    }
+    
+    public int getWeaponsRange(){
+        return this.weaponsRange;
+    }
+    
+    public int getWeaponsDamage(){
+        return this.weaponsDamage;
     }
     
     public boolean damage (int damage){
@@ -54,7 +73,7 @@ public abstract class Ship {
         }
     }
     
-    private boolean isSpotinRange (Board board, Spot start, Spot end, int range){
+    public static boolean isSpotinRange (Board board, Spot start, Spot end, int range){
         int x = Math.abs(start.getX() - end.getX()); 
         int y = Math.abs(start.getY() - end.getY());
         return x+y <= range;

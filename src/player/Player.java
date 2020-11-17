@@ -10,9 +10,9 @@ package player;
  * @author Patryk
  */
 public abstract class Player {
-    protected boolean humanity;
+    protected boolean computer;
     
-    public boolean isHuman(){
-        return this.humanity;
+    public boolean isComputer(){
+        return this.computer;
     }
 }

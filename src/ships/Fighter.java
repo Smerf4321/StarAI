@@ -16,6 +16,6 @@ public class Fighter extends Ship{
     static int damage = 1;
 
     public Fighter(boolean computer) {
-        super(computer, Fighter.maxHealth);
+        super(computer, Fighter.maxHealth, Fighter.damage);
     }
 }
