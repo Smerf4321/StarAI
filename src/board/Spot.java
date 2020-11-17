@@ -32,6 +32,10 @@ public class Spot {
         return ship;
     }
     
+    public void setShip (Ship ship){
+        this.ship = ship;
+    }
+    
     /**
      * Returns where the Spot is on the x-axis
      * @return integer
