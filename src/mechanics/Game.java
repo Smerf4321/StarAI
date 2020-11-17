@@ -12,7 +12,7 @@ import player.Player;
 import ships.Ship;
 
 /**
- *
+ * Game class defines a singular game
  * @author Patryk
  */
 public class Game {
@@ -22,6 +22,11 @@ public class Game {
     private GameState state;
     private List<Move> movesThisTurn;
     
+    /**
+     * Function that creates the environment for a new game
+     * @param p1 Player 1
+     * @param p2 Player 2
+     */
     private void initialize (Player p1, Player p2){
         players[0] = p1;
         players[1] = p2;
@@ -31,14 +36,32 @@ public class Game {
         movesThisTurn.clear();
     }
    
+    /**
+     * 
+     * @return state of the game
+     */
     public GameState getGameState(){
         return this.state;
     }
     
+    /**
+     * Changes the state of the game
+     * @param state 
+     */
     public void setGameState(GameState state){
         this.state = state;
     }
     
+    /**
+     * Calls functions responsible for specific player actions
+     * @param player The player 
+     * @param startX x-coord of the starting point
+     * @param startY y-coord of the starting point
+     * @param endX x-coord of the end point (target)
+     * @param endY y-coord of the end point (target
+     * @param actionType MOVE, ATTACK, REPAIR
+     * @return returns whether the action was possible/successful
+     */
     public boolean playerMove(Player player, int startX, int startY, int endX, int endY, ActionType actionType){
         Spot startSpot = board.getSpot(startX, startY); 
         
@@ -67,6 +90,12 @@ public class Game {
         }
     }
     
+    /**
+     * Function that defines Move functionality for a ship
+     * @param move Move class of a specific move
+     * @param player Player doing the move
+     * @return whether it was possible/successful
+     */
     private boolean makeMove(Move move, Player player) 
     { 
         Ship sourceShip = move.getStart().getShip(); 
@@ -91,6 +120,13 @@ public class Game {
         return true; 
     } 
     
+    //TODO add win condition 
+    /**
+     * Function that defines Attack functionality for a ship
+     * @param move Move class of a specific move
+     * @param player Player doing the move
+     * @return whether it was possible/successful
+     */
     private boolean makeAttack (Move move, Player player){
         Ship sourceShip = move.getStart().getShip(); 
   
@@ -113,6 +149,12 @@ public class Game {
         return true;
     }
     
+    /**
+     * Function that defines Repair functionality for a ship
+     * @param move Move class of a specific move
+     * @param player Player doing the move
+     * @return whether it was possible/successful
+     */
     private boolean makeRepair (Move move, Player player){
         Ship sourceShip = move.getStart().getShip();  
         
@@ -135,19 +177,22 @@ public class Game {
         return true;
     }
     
+    //tells you whether ship actually exists
     private boolean isShipNull(Ship ship){
         return ship == null;
     }
     
+    //checks if it is the players turn and if the ship doing an action belongs to the player
     private boolean isPlayerValid(Ship ship, Player player){
         return ((player == currentTurn) || (player.isComputer() == ship.isComputer()));
     }
     
-    //TODO add more proper pathfinding
+    //TODO add more proper pathfinding, so that ships block movement
     private boolean isInRange (Move move, int range){
         return (Ship.isSpotinRange(board, move.getStart(),move.getEnd(), range));
     }
     
+    //checks if the Spot has no ship on it
     private boolean isSpotEmpty (Spot spot){
         return spot.getShip() == null;
     }
