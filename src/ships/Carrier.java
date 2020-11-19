@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ships;
 
 /**
- *
+ * This is a concrete implementation of Carrier which extends Ship
  * @author Patryk
  */
 public class Carrier extends Ship{
@@ -14,7 +9,11 @@ public class Carrier extends Ship{
     static int movementRange = 1;
     static int weaponsRange = 2;
     static int damage = 1;
-
+    
+    /**
+     * Carrier constructor
+     * @param computer whether the ship is controlled by a computer
+     */
     public Carrier(boolean computer) {
         super(computer, Carrier.maxHealth, Carrier.damage);
     }

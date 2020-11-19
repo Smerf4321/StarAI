@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mechanics;
 
 import board.Board;
@@ -20,7 +15,7 @@ public class Game {
     private Board board;
     private Player currentTurn;
     private GameState state;
-    private List<Move> movesThisTurn;
+    private List<Action> movesThisTurn;
     
     /**
      * Function that creates the environment for a new game
@@ -46,7 +41,7 @@ public class Game {
     
     /**
      * Changes the state of the game
-     * @param state 
+     * @param state new game state for the game
      */
     public void setGameState(GameState state){
         this.state = state;
@@ -76,7 +71,7 @@ public class Game {
         }
         
         Spot endSpot = board.getSpot(endX, endY); 
-        Move move = new Move(player, startSpot, endSpot); 
+        Action move = new Action(player, startSpot, endSpot); 
 
         switch (actionType) {
             case MOVE:
@@ -91,12 +86,12 @@ public class Game {
     }
     
     /**
-     * Function that defines Move functionality for a ship
-     * @param move Move class of a specific move
+     * Function that defines Action functionality for a ship
+     * @param move Action class of a specific move
      * @param player Player doing the move
      * @return whether it was possible/successful
      */
-    private boolean makeMove(Move move, Player player) 
+    private boolean makeMove(Action move, Player player) 
     { 
         Ship sourceShip = move.getStart().getShip(); 
          
@@ -123,11 +118,11 @@ public class Game {
     //TODO add win condition 
     /**
      * Function that defines Attack functionality for a ship
-     * @param move Move class of a specific move
+     * @param move Action class of a specific move
      * @param player Player doing the move
      * @return whether it was possible/successful
      */
-    private boolean makeAttack (Move move, Player player){
+    private boolean makeAttack (Action move, Player player){
         Ship sourceShip = move.getStart().getShip(); 
   
         // is the target in range 
@@ -151,11 +146,11 @@ public class Game {
     
     /**
      * Function that defines Repair functionality for a ship
-     * @param move Move class of a specific move
+     * @param move Action class of a specific move
      * @param player Player doing the move
      * @return whether it was possible/successful
      */
-    private boolean makeRepair (Move move, Player player){
+    private boolean makeRepair (Action move, Player player){
         Ship sourceShip = move.getStart().getShip();  
         
         // is the target in range 
@@ -188,7 +183,7 @@ public class Game {
     }
     
     //TODO add more proper pathfinding, so that ships block movement
-    private boolean isInRange (Move move, int range){
+    private boolean isInRange (Action move, int range){
         return (Ship.isSpotinRange(board, move.getStart(),move.getEnd(), range));
     }
     

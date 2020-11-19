@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package player;
 
 /**
- *
+ * This is an abstract class defining common features of all players
  * @author Patryk
  */
 public abstract class Player {

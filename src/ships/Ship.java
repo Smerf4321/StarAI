@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ships;
 
 import board.Board;
@@ -61,11 +56,20 @@ public abstract class Ship {
         return this.weaponsDamage;
     }
     
+    /**
+     * Decreases the health of the ship by specified amount
+     * @param damage int damage dealt to this ship
+     * @return whether or not the ship was destroyed
+     */
     public boolean damage (int damage){
         currentHealth -= damage;
         return currentHealth <= 0;
     }
     
+    /**
+     * Increases the health of the ship by specified amount
+     * @param repair int repair done on this ship
+     */
     public void repair (int repair){
         currentHealth += repair;
         if (currentHealth > maxHealth){
@@ -73,6 +77,14 @@ public abstract class Ship {
         }
     }
     
+    /**
+     * Function that checks if the starting spot is in range of a specified spot
+     * @param board Board class, e.g. current game board
+     * @param start starting Spot for the calculation
+     * @param end ending Spot for the calculation
+     * @param range int limit (movement range etc) 
+     * @return whether Spot End is in specified range from Spot Start
+     */
     public static boolean isSpotinRange (Board board, Spot start, Spot end, int range){
         int x = Math.abs(start.getX() - end.getX()); 
         int y = Math.abs(start.getY() - end.getY());
