@@ -17,19 +17,26 @@ public abstract class Ship {
     private int weaponsDamage;
     
     //boolean that define whether the ship have acted this turn
-    private boolean haveActed = false;
+    private boolean initiative = false;
+    
+    private boolean canAttack;
+    private boolean canRepair;
     
     /**
      * Abstract constructor for ship
      * @param computer is ship controlled by computer
      * @param maxHealth max health of the ship
      * @param weaponsDamage damage dealt by the ship
+     * @param canAttack defines whether the ship can take attack action
+     * @param canRepair defines whether the ship can take repair action
      */
-    public Ship (boolean computer, int maxHealth, int weaponsDamage){
+    public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair){
         this.computer = computer;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.weaponsDamage = weaponsDamage;
+        this.canAttack = canAttack;
+        this.canRepair = canRepair;
     }
     
     public void setComputer (boolean computer){
@@ -37,7 +44,7 @@ public abstract class Ship {
     }
     
     public boolean isComputer (){
-        return this.computer;
+        return computer;
     }
     
     public int getHealth(){
@@ -45,25 +52,46 @@ public abstract class Ship {
     }
     
     public int getMovementRange(){
-        return this.movementRange;
+        return movementRange;
     }
     
     public int getWeaponsRange(){
-        return this.weaponsRange;
+        return weaponsRange;
     }
     
     public int getWeaponsDamage(){
-        return this.weaponsDamage;
+        return weaponsDamage;
+    }
+    
+    public boolean getInitiative(){
+        return initiative;
+    }
+    
+    public void spendInitiative(){
+        initiative = true;
+    }
+    
+    public void regainInitiative(){
+        initiative = false;
+    }
+    
+    public boolean getCanAttack(){
+        return canAttack;
+    }
+    
+    public boolean getCanRepair(){
+        return canRepair;
     }
     
     /**
      * Decreases the health of the ship by specified amount
      * @param damage int damage dealt to this ship
-     * @return whether or not the ship was destroyed
      */
-    public boolean damage (int damage){
+    public void damage (int damage){
         currentHealth -= damage;
-        return currentHealth <= 0;
+        if (currentHealth <= 0){
+            killed = true;
+        }
     }
     
     /**

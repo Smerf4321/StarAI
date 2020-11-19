@@ -1,8 +1,7 @@
 package board;
 
-import ships.Carrier;
-import ships.Cruiser;
-import ships.Fighter;
+import java.util.List;
+import ships.*;
 
 /**
  *
@@ -12,6 +11,8 @@ public final class Board {
     private int length;
     private int width;
     private Spot[][] map;
+    private List<Ship> p1Ships;
+    private List<Ship> p2Ships;
     
     public Board(){
         length = 10;
@@ -39,18 +40,41 @@ public final class Board {
             }
         }
         
-        map[0][2].setShip(new Cruiser(false));
-        map[0][3].setShip(new Carrier(false));
-        map[0][4].setShip(new Cruiser(false));
-        map[1][2].setShip(new Fighter(false));
-        map[1][3].setShip(new Fighter(false));
-        map[1][4].setShip(new Fighter(false));
         
-        map[9][2].setShip(new Cruiser(true));
-        map[9][3].setShip(new Carrier(true));
-        map[9][4].setShip(new Cruiser(true));
-        map[8][2].setShip(new Fighter(true));
-        map[8][3].setShip(new Fighter(true));
-        map[8][4].setShip(new Fighter(true));
+        spawnP1Ship(0,2,new Cruiser(false));
+        spawnP1Ship(0,3,new Carrier(false));
+        spawnP1Ship(0,4,new Cruiser(false));
+        spawnP1Ship(1,2,new Fighter(false));
+        spawnP1Ship(1,3,new Fighter(false));
+        spawnP1Ship(1,4,new Fighter(false));
+
+        spawnP2Ship(0,2,new Cruiser(true));
+        spawnP2Ship(0,3,new Carrier(true));
+        spawnP2Ship(0,4,new Cruiser(true));
+        spawnP2Ship(1,2,new Fighter(true));
+        spawnP2Ship(1,3,new Fighter(true));
+        spawnP2Ship(1,4,new Fighter(true));
+    }
+    
+    /**
+     * Adds a ship to a specified Spot and list of P1 player ships
+     * @param x x-coord of Spot
+     * @param y y-coord of Spot
+     * @param ship Ship spawned at the spot
+     */
+    private void spawnP1Ship(int x, int y, Ship ship){
+        map[x][y].setShip(ship);
+        p1Ships.add(ship);
+    }
+    
+    /**
+     * Adds a ship to a specified Spot and list of P2 player ships
+     * @param x x-coord of Spot
+     * @param y y-coord of Spot
+     * @param ship Ship spawned at the spot
+     */
+    private void spawnP2Ship(int x, int y, Ship ship){
+        map[x][y].setShip(ship);
+        p2Ships.add(ship);
     }
 }

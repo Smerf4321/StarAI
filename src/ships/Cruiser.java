@@ -10,12 +10,14 @@ public class Cruiser extends Ship{
     static int movementRange = 2;
     static int weaponsRange = 2;
     static int damage = 1;
+    static boolean canAttack = false;
+    static boolean canRepair = true;
     
     /**
      * Cruiser constructor
      * @param computer whether the ship is controlled by a computer
      */
     public Cruiser(boolean computer) {
-        super(computer, Cruiser.maxHealth, Cruiser.damage);
+        super(computer, Cruiser.maxHealth, Cruiser.damage, canAttack, canRepair);
     }
 }

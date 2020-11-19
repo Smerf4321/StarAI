@@ -60,8 +60,13 @@ public class Game {
     public boolean playerMove(Player player, int startX, int startY, int endX, int endY, ActionType actionType){
         Spot startSpot = board.getSpot(startX, startY); 
         
-        //checks if there is a ship in teh selected spot
+        //checks if there is a ship in the selected spot
         if (isShipNull (startSpot.getShip())){
+            return false;
+        }
+        
+        //checks if the ship has initiative e.g. can act this turn
+        if (!startSpot.getShip().getInitiative()){
             return false;
         }
         
@@ -93,10 +98,10 @@ public class Game {
      */
     private boolean makeMove(Action move, Player player) 
     { 
-        Ship sourceShip = move.getStart().getShip(); 
+        Ship startShip = move.getStart().getShip(); 
          
         // is the destination in range 
-        if (!isInRange(move, sourceShip.getMovementRange())) { 
+        if (!isInRange(move, startShip.getMovementRange())) { 
             return false; 
         } 
   
@@ -111,6 +116,9 @@ public class Game {
         // move piece from the start spot to end spot 
         move.getEnd().setShip(move.getStart().getShip());
         move.getStart().setShip(null); 
+        
+        // set the ship as already activated
+        startShip.spendInitiative();
   
         return true; 
     } 
@@ -123,10 +131,16 @@ public class Game {
      * @return whether it was possible/successful
      */
     private boolean makeAttack (Action move, Player player){
-        Ship sourceShip = move.getStart().getShip(); 
+        Ship startShip = move.getStart().getShip(); 
+        Ship endShip = move.getEnd().getShip();
   
+        //can the ship attack
+        if (!startShip.getCanAttack()){
+            return false;
+        }
+        
         // is the target in range 
-        if (!isInRange(move, sourceShip.getWeaponsRange())) { 
+        if (!isInRange(move, startShip.getWeaponsRange())) { 
             return false; 
         }
         
@@ -139,7 +153,10 @@ public class Game {
         movesThisTurn.add(move); 
         
         // assign damage to the target
-        move.getEnd().getShip().damage(move.getStart().getShip().getWeaponsDamage());
+        endShip.damage(startShip.getWeaponsDamage());
+        
+        // set the ship as already activated
+        startShip.spendInitiative();
         
         return true;
     }
@@ -151,14 +168,20 @@ public class Game {
      * @return whether it was possible/successful
      */
     private boolean makeRepair (Action move, Player player){
-        Ship sourceShip = move.getStart().getShip();  
+        Ship startShip = move.getStart().getShip();  
+        Ship endShip = move.getEnd().getShip();
+        
+        //can the ship repair
+        if (!startShip.getCanRepair()){
+            return false;
+        }
         
         // is the target in range 
-        if (!isInRange(move, sourceShip.getWeaponsRange())) { 
+        if (!isInRange(move, startShip.getWeaponsRange())) { 
             return false; 
         } 
         
-        // is there a target in the sot and if it belongs to the player
+        // is there a target in the spot and if it belongs to the player
         if ((!isSpotEmpty(move.getEnd())) || (!move.getEnd().getShip().isComputer() == player.isComputer())) { 
             return false;
         } 
@@ -167,7 +190,10 @@ public class Game {
         movesThisTurn.add(move); 
         
         //assign repair to the target
-        move.getEnd().getShip().repair(move.getStart().getShip().getWeaponsDamage());
+        endShip.repair(startShip.getWeaponsDamage());
+        
+        // set the ship as already activated
+        startShip.spendInitiative();
         
         return true;
     }
