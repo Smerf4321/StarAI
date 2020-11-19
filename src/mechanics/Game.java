@@ -4,6 +4,7 @@ import board.Board;
 import board.Spot;
 import java.util.List;
 import player.Player;
+import ships.Carrier;
 import ships.Ship;
 
 /**
@@ -216,5 +217,33 @@ public class Game {
     //checks if the Spot has no ship on it
     private boolean isSpotEmpty (Spot spot){
         return spot.getShip() == null;
+    }
+    
+    /**
+     * this function evaluates the state of the game, e.g. checks win conditions
+     * @return the current state of the game
+     */
+    private GameState evaluateGameState(){
+        List<Ship> ships = board.getShipList();
+        for (Ship ship : ships){
+            //checks if either of the carriers are destroyed and changes gamestate accrdingly
+            if ((ship instanceof Carrier) && ship.isKilled()){
+                if (ship.isComputer()){
+                    return GameState.HUMAN_WIN;
+                }
+                else {
+                    return GameState.COMPUTER_WIN;
+                }
+            }
+            
+            //checks if all ships, other than Carriers have been killed and returns a Draw
+            if (!ship.isKilled() && !(ship instanceof Carrier)){
+                return GameState.ACTIVE;
+            }
+            else {
+                return GameState.DRAW;
+            }
+        }
+        return GameState.ACTIVE;
     }
 }

@@ -11,8 +11,7 @@ public final class Board {
     private int length;
     private int width;
     private Spot[][] map;
-    private List<Ship> p1Ships;
-    private List<Ship> p2Ships;
+    private List<Ship> ships;
     
     public Board(){
         length = 10;
@@ -48,12 +47,12 @@ public final class Board {
         spawnP1Ship(1,3,new Fighter(false));
         spawnP1Ship(1,4,new Fighter(false));
 
-        spawnP2Ship(0,2,new Cruiser(true));
-        spawnP2Ship(0,3,new Carrier(true));
-        spawnP2Ship(0,4,new Cruiser(true));
-        spawnP2Ship(1,2,new Fighter(true));
-        spawnP2Ship(1,3,new Fighter(true));
-        spawnP2Ship(1,4,new Fighter(true));
+        spawnP1Ship(0,2,new Cruiser(true));
+        spawnP1Ship(0,3,new Carrier(true));
+        spawnP1Ship(0,4,new Cruiser(true));
+        spawnP1Ship(1,2,new Fighter(true));
+        spawnP1Ship(1,3,new Fighter(true));
+        spawnP1Ship(1,4,new Fighter(true));
     }
     
     /**
@@ -64,17 +63,10 @@ public final class Board {
      */
     private void spawnP1Ship(int x, int y, Ship ship){
         map[x][y].setShip(ship);
-        p1Ships.add(ship);
+        ships.add(ship);
     }
     
-    /**
-     * Adds a ship to a specified Spot and list of P2 player ships
-     * @param x x-coord of Spot
-     * @param y y-coord of Spot
-     * @param ship Ship spawned at the spot
-     */
-    private void spawnP2Ship(int x, int y, Ship ship){
-        map[x][y].setShip(ship);
-        p2Ships.add(ship);
+    public List getShipList(){
+        return ships;
     }
 }

@@ -83,6 +83,10 @@ public abstract class Ship {
         return canRepair;
     }
     
+    public boolean isKilled(){
+        return killed;
+    }
+    
     /**
      * Decreases the health of the ship by specified amount
      * @param damage int damage dealt to this ship
