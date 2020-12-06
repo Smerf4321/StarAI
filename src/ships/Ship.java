@@ -15,6 +15,7 @@ public abstract class Ship {
     private int movementRange;
     private int weaponsRange;
     private int weaponsDamage;
+    private String shipTexture;
     
     //boolean that define whether the ship have acted this turn
     private boolean initiative = false;
@@ -30,13 +31,14 @@ public abstract class Ship {
      * @param canAttack defines whether the ship can take attack action
      * @param canRepair defines whether the ship can take repair action
      */
-    public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair){
+    public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair, String shipTexture){
         this.computer = computer;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.weaponsDamage = weaponsDamage;
         this.canAttack = canAttack;
         this.canRepair = canRepair;
+        this.shipTexture = shipTexture;
     }
     
     public void setComputer (boolean computer){
@@ -118,8 +120,16 @@ public abstract class Ship {
      * @return whether Spot End is in specified range from Spot Start
      */
     public static boolean isSpotinRange (Board board, Spot start, Spot end, int range){
-        int x = Math.abs(start.getX() - end.getX()); 
-        int y = Math.abs(start.getY() - end.getY());
+        float x = Math.abs(start.getX() - end.getX()); 
+        float y = Math.abs(start.getY() - end.getY());
         return x+y <= range;
+    }
+    
+    /**
+     * Returns the texture name of the ship
+     * @return string shipTexture
+     */
+    public String getShipTexture(){
+        return shipTexture;
     }
 }

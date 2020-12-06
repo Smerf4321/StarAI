@@ -13,9 +13,9 @@ public final class Board {
     private Spot[][] map;
     private List<Ship> ships;
     
-    public Board(){
-        length = 10;
-        width = 7;
+    public Board(int width, int length){
+        this.length = length;
+        this.width = width;
         resetMap();
     }
     
@@ -53,6 +53,14 @@ public final class Board {
         spawnP1Ship(1,2,new Fighter(true));
         spawnP1Ship(1,3,new Fighter(true));
         spawnP1Ship(1,4,new Fighter(true));
+    }
+    
+    public void Draw(){
+        for (int x = 0; x < length-1; x++){
+            for (int y = 0; y < width-1; y++){
+                map[x][y] = new Spot(x, y, null);
+            }
+        }
     }
     
     /**

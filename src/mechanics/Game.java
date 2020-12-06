@@ -27,7 +27,7 @@ public class Game {
         players[0] = p1;
         players[1] = p2;
         
-        board = new Board();
+        board = new Board(20, 15);
         currentTurn = p1;
         movesThisTurn.clear();
     }

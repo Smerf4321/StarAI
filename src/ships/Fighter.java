@@ -1,4 +1,5 @@
 package ships;
+
 /**
  * This is a concrete implementation of Fighter which extends Ship
  * @author Patryk
@@ -11,12 +12,13 @@ public class Fighter extends Ship{
     static int damage = 1;
     static boolean canAttack = true;
     static boolean canRepair = false;
+    static String shipTexture = "Fighter";
 
     /**
      * Fighter constructor
      * @param computer whether the ship is controlled by a computer
      */
     public Fighter(boolean computer) {
-        super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair);
+        super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, shipTexture);
     }
 }

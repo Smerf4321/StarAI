@@ -12,12 +12,13 @@ public class Cruiser extends Ship{
     static int damage = 1;
     static boolean canAttack = false;
     static boolean canRepair = true;
+    static String shipTexture = "Carrier";
     
     /**
      * Cruiser constructor
      * @param computer whether the ship is controlled by a computer
      */
     public Cruiser(boolean computer) {
-        super(computer, Cruiser.maxHealth, Cruiser.damage, canAttack, canRepair);
+        super(computer, Cruiser.maxHealth, Cruiser.damage, canAttack, canRepair, shipTexture);
     }
 }
