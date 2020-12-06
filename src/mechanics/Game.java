@@ -23,7 +23,7 @@ public class Game {
      * @param p1 Player 1
      * @param p2 Player 2
      */
-    private void initialize (Player p1, Player p2){
+    public void initialize (Player p1, Player p2){
         players[0] = p1;
         players[1] = p2;
         
@@ -33,8 +33,8 @@ public class Game {
     }
    
     /**
-     * 
-     * @return state of the game
+     * Returns state of the game
+     * @return GameState enum
      */
     public GameState getGameState(){
         return this.state;
