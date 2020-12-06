@@ -13,7 +13,7 @@ public class Spot {
     private float x;
     private float y;
     private static float width = 64;
-    private static float length = 64;
+    private static float height = 64;
     private String spotTexture = "EmptySpot";
    
     /**
@@ -42,7 +42,7 @@ public class Spot {
      * Draws the spot
      */
     public void Draw(){
-        DrawQuadTexture(QuickTextureLoad(spotTexture), x, y, width, length);
+        DrawQuadTexture(QuickTextureLoad(spotTexture), x, y, width, height);
     }
     
     /**
@@ -89,7 +89,7 @@ public class Spot {
      * Returns the length of the spot
      * @return float
      */
-    public float getLength(){
-        return length;
+    public float getHeight(){
+        return height;
     }
 }

@@ -1,6 +1,7 @@
 package GUI;
 
 import static GUIHelpers.DrawHelper.*;
+import board.Board;
 import board.Spot;
 import org.lwjgl.opengl.Display;
 import ships.Fighter;
@@ -15,12 +16,11 @@ public class BoardGUI {
         
         BeginSession(width, height);
         
-        Spot spot = new Spot(0, 0, new Fighter(true));
-        Spot spot2 = new Spot(0, 64, new Fighter(true));
+        Board board = new Board(width, height);
         
         while(!Display.isCloseRequested()){
-            spot.Draw();
-            spot2.Draw();
+            
+            board.Draw();
             
             Display.update();
             Display.sync(60);
