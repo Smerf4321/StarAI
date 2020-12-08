@@ -11,7 +11,7 @@ public class StarAI {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new BoardGUI(1280, 960);
+        new BoardGUI(10, 7);
     }
     
 }

@@ -21,6 +21,9 @@ public class DrawHelper {
     
     public static void BeginSession(int width, int height){
         
+        width = 128*width;
+        height = 128*height;
+        
         Display.setTitle("StarAI");
         try {
             Display.setDisplayMode(new DisplayMode(width, height));

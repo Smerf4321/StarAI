@@ -12,9 +12,9 @@ public class Spot {
     private Ship ship;
     private float x;
     private float y;
-    private static float width = 64;
-    private static float height = 64;
-    private String spotTexture = "EmptySpot";
+    private static float width = 128;
+    private static float height = 128;
+    private String spotTexture = "emptyspot128";
    
     /**
      * This is a constructor for a spot with a ship

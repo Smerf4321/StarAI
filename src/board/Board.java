@@ -14,8 +14,8 @@ public final class Board {
     private List<Ship> ships;
     
     public Board(int width, int height){
-        this.height = height/64;
-        this.width = width/64;
+        this.height = height;
+        this.width = width;
         resetMap();
     }
     
@@ -33,10 +33,10 @@ public final class Board {
      * Resets the map to its starting state
      */
     public void resetMap (){
-        map = new Spot[20][15];
+        map = new Spot[width][height];
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
-                map[x][y] = new Spot(x*64, y*64, null);
+                map[x][y] = new Spot(x*128, y*128, null);
             }
         }
         
