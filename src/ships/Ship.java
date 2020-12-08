@@ -1,5 +1,7 @@
 package ships;
 
+import static GUIHelpers.DrawHelper.DrawQuadTexture;
+import static GUIHelpers.DrawHelper.QuickTextureLoad;
 import board.Board;
 import board.Spot;
 
@@ -10,18 +12,19 @@ import board.Spot;
 public abstract class Ship {
     private boolean killed = false;
     private boolean computer = false;
+    private Spot spot;
     private final int maxHealth;
     private int currentHealth;
     private int movementRange;
     private int weaponsRange;
-    private int weaponsDamage;
-    private String shipTexture;
+    private final int weaponsDamage;
+    private final String shipTexture;
     
     //boolean that define whether the ship have acted this turn
     private boolean initiative = false;
     
-    private boolean canAttack;
-    private boolean canRepair;
+    private final boolean canAttack;
+    private final boolean canRepair;
     
     /**
      * Abstract constructor for ship
@@ -30,8 +33,10 @@ public abstract class Ship {
      * @param weaponsDamage damage dealt by the ship
      * @param canAttack defines whether the ship can take attack action
      * @param canRepair defines whether the ship can take repair action
+     * @param shipTexture texture of the ship
+     * @param spot pointer to the spot the ship is on
      */
-    public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair, String shipTexture){
+    public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair, String shipTexture, Spot spot){
         this.computer = computer;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
@@ -39,6 +44,11 @@ public abstract class Ship {
         this.canAttack = canAttack;
         this.canRepair = canRepair;
         this.shipTexture = shipTexture;
+        this.spot = spot;
+    }
+    
+    public void Draw(){
+        DrawQuadTexture(QuickTextureLoad(shipTexture), spot.getX(), spot.getY(), 128, 128);
     }
     
     public void setComputer (boolean computer){

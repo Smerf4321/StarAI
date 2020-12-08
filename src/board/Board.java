@@ -36,7 +36,7 @@ public final class Board {
         map = new Spot[width][height];
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
-                map[x][y] = new Spot(x*128, y*128, null);
+                map[x][y] = new Spot(x*128, y*128);
             }
         }
         
@@ -73,7 +73,6 @@ public final class Board {
      * @param ship Ship spawned at the spot
      */
     private void spawnP1Ship(int x, int y, Ship ship){
-        map[x][y].setShip(ship);
         ships.add(ship);
     }
     

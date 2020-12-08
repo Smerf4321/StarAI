@@ -37,6 +37,8 @@ public class DrawHelper {
         glOrtho(0.0, width, height, 0.0, 1.0, -1.0);
         glMatrixMode(GL_MODELVIEW);
         glEnable(GL_TEXTURE_2D);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
     
     public static void DrawQuad(float startX, float startY, float width, float length){
