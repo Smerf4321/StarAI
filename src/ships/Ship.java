@@ -2,6 +2,7 @@ package ships;
 
 import static GUIHelpers.DrawHelper.DrawQuadTexture;
 import static GUIHelpers.DrawHelper.QuickTextureLoad;
+import GUIHelpers.Drawable;
 import board.Board;
 import board.Spot;
 
@@ -9,7 +10,7 @@ import board.Spot;
  * This is an abstract class that defines common features of each ship
  * @author Patryk
  */
-public abstract class Ship {
+public abstract class Ship implements Drawable{
     private boolean killed = false;
     private boolean computer = false;
     private Spot spot;
@@ -47,6 +48,7 @@ public abstract class Ship {
         this.spot = spot;
     }
     
+    @Override
     public void Draw(){
         DrawQuadTexture(QuickTextureLoad(shipTexture), spot.getX(), spot.getY(), 128, 128);
     }

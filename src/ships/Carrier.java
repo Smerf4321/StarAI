@@ -13,7 +13,7 @@ public class Carrier extends Ship{
     static int damage = 1;
     static boolean canAttack = false;
     static boolean canRepair = true;
-    static String shipTexture = "Carrier128";
+    static String shipTexture = "PCarrier128";
     
     /**
      * Carrier constructor
@@ -21,5 +21,8 @@ public class Carrier extends Ship{
      */
     public Carrier(boolean computer, Spot spot) {
         super(computer, Carrier.maxHealth, Carrier.damage, canAttack, canRepair, shipTexture, spot);
+        if (computer){
+            shipTexture = "ECarrier128";
+        }
     }
 }

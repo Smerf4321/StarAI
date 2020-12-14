@@ -14,7 +14,7 @@ public class Fighter extends Ship{
     static int damage = 1;
     static boolean canAttack = true;
     static boolean canRepair = false;
-    static String shipTexture = "Fighters128";
+    static String shipTexture = "PFighters128";
 
     /**
      * Fighter constructor
@@ -22,5 +22,8 @@ public class Fighter extends Ship{
      */
     public Fighter(boolean computer, Spot spot) {
         super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, shipTexture, spot);
+        if (computer){
+            shipTexture = "EFighters128";
+        }
     }
 }

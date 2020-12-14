@@ -13,7 +13,6 @@ public class Action {
     private Spot start;
     private Spot end;
     private Ship shipMoved;
-    private Ship shipKilled;
     
     /**
      * Constructor for an Action
@@ -21,11 +20,15 @@ public class Action {
      * @param start Spot at which the action starts 
      * @param end Spot at which the action ends
      */
-    public Action(Player player, Spot start, Spot end){
+    public Action(Player player, Spot start, Spot end, Ship ship){
         this.player = player; 
         this.start = start; 
         this.end = end; 
-        this.shipMoved = start.getShip(); 
+        this.shipMoved = ship;
+    }
+    
+    public Ship getShipMoved(){
+        return shipMoved;
     }
     
     public Spot getStart(){

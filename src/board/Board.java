@@ -1,5 +1,7 @@
 package board;
 
+import GUIHelpers.Drawable;
+import java.util.ArrayList;
 import java.util.List;
 import ships.*;
 
@@ -7,16 +9,16 @@ import ships.*;
  *
  * @author Patryk
  */
-public final class Board {
+public final class Board implements Drawable{
     private int height;
     private int width;
     private Spot[][] map;
-    private List<Ship> ships;
+    private ArrayList<Ship> ships;
     
     public Board(int width, int height){
         this.height = height;
         this.width = width;
-        resetMap();
+        setMap();
     }
     
     /**
@@ -32,7 +34,7 @@ public final class Board {
     /**
      * Resets the map to its starting state
      */
-    public void resetMap (){
+    public void setMap (){
         map = new Spot[width][height];
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
@@ -40,23 +42,23 @@ public final class Board {
             }
         }
         
-        /*
-        spawnP1Ship(0,2,new Cruiser(false));
-        spawnP1Ship(0,3,new Carrier(false));
-        spawnP1Ship(0,4,new Cruiser(false));
-        spawnP1Ship(1,2,new Fighter(false));
-        spawnP1Ship(1,3,new Fighter(false));
-        spawnP1Ship(1,4,new Fighter(false));
+        ships = new ArrayList<>();
+        ships.add(new Cruiser(false, map[0][2]));
+        ships.add(new Carrier(false, map[0][3]));
+        ships.add(new Cruiser(false, map[0][4]));
+        ships.add(new Fighter(false, map[1][2]));
+        ships.add(new Fighter(false, map[1][3]));
+        ships.add(new Fighter(false, map[1][4]));
 
-        spawnP1Ship(0,2,new Cruiser(true));
-        spawnP1Ship(0,3,new Carrier(true));
-        spawnP1Ship(0,4,new Cruiser(true));
-        spawnP1Ship(1,2,new Fighter(true));
-        spawnP1Ship(1,3,new Fighter(true));
-        spawnP1Ship(1,4,new Fighter(true));
-        */
+        ships.add(new Cruiser(true, map[9][2]));
+        ships.add(new Carrier(true, map[9][3]));
+        ships.add(new Cruiser(true, map[9][4]));
+        ships.add(new Fighter(true, map[8][2]));
+        ships.add(new Fighter(true, map[8][3]));
+        ships.add(new Fighter(true, map[8][4]));
     }
     
+    @Override
     public void Draw(){
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
@@ -65,18 +67,12 @@ public final class Board {
             }
         }
     }
-    
+
     /**
-     * Adds a ship to a specified Spot and list of P1 player ships
-     * @param x x-coord of Spot
-     * @param y y-coord of Spot
-     * @param ship Ship spawned at the spot
+     * Returns the list of ships
+     * @return List<Ship>
      */
-    private void spawnP1Ship(int x, int y, Ship ship){
-        ships.add(ship);
-    }
-    
-    public List getShipList(){
+    public List<Ship> getShipList(){
         return ships;
     }
 }

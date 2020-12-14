@@ -58,26 +58,18 @@ public class Game {
      * @param actionType MOVE, ATTACK, REPAIR
      * @return returns whether the action was possible/successful
      */
-    public boolean playerMove(Player player, int startX, int startY, int endX, int endY, ActionType actionType){
+    public boolean playerMove(Player player, int startX, int startY, int endX, int endY, ActionType actionType, Ship ship){
         Spot startSpot = board.getSpot(startX, startY); 
         
         //checks if there is a ship in the selected spot
-        if (isShipNull (startSpot.getShip())){
-            return false;
-        }
-        
-        //checks if the ship has initiative e.g. can act this turn
-        if (!startSpot.getShip().getInitiative()){
-            return false;
-        }
-        
-        //checks if it is the players ship and if it is the players turn
-        if (!isPlayerValid(startSpot.getShip(), player)){
+        //and if the ship has initiative e.g. can act this turn
+        //and if it is the players ship and if it is the players turn
+        if (ship == null && !ship.getInitiative() && !isPlayerValid(ship, player)){
             return false;
         }
         
         Spot endSpot = board.getSpot(endX, endY); 
-        Action move = new Action(player, startSpot, endSpot); 
+        Action move = new Action(player, startSpot, endSpot, ship); 
 
         switch (actionType) {
             case MOVE:
@@ -99,7 +91,7 @@ public class Game {
      */
     private boolean makeMove(Action move, Player player) 
     { 
-        Ship startShip = move.getStart().getShip(); 
+        Ship startShip = move.getShipMoved(); 
          
         // is the destination in range 
         if (!isInRange(move, startShip.getMovementRange())) { 
@@ -197,11 +189,6 @@ public class Game {
         startShip.spendInitiative();
         
         return true;
-    }
-    
-    //tells you whether ship actually exists
-    private boolean isShipNull(Ship ship){
-        return ship == null;
     }
     
     //checks if it is the players turn and if the ship doing an action belongs to the player
