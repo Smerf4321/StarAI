@@ -13,16 +13,22 @@ public class Carrier extends Ship{
     static int damage = 1;
     static boolean canAttack = false;
     static boolean canRepair = true;
-    static String shipTexture = "PCarrier128";
+    static String shipTexture;
     
     /**
      * Carrier constructor
      * @param computer whether the ship is controlled by a computer
      */
     public Carrier(boolean computer, Spot spot) {
-        super(computer, Carrier.maxHealth, Carrier.damage, canAttack, canRepair, shipTexture, spot);
+        super(computer, Carrier.maxHealth, Carrier.damage, canAttack, canRepair, getTexture(computer));
+    }
+    
+    private static String getTexture(boolean computer){
         if (computer){
-            shipTexture = "ECarrier128";
+            return "ECarrier128";
+        }
+        else {
+            return "PCarrier128";
         }
     }
 }

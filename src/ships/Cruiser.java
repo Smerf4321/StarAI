@@ -14,16 +14,23 @@ public class Cruiser extends Ship{
     static int damage = 1;
     static boolean canAttack = false;
     static boolean canRepair = true;
-    static String shipTexture = "PCruiser128";
+    static String shipTexture;
     
     /**
      * Cruiser constructor
      * @param computer whether the ship is controlled by a computer
      */
     public Cruiser(boolean computer, Spot spot) {
-        super(computer, Cruiser.maxHealth, Cruiser.damage, canAttack, canRepair, shipTexture, spot);
+        super(computer, Cruiser.maxHealth, Cruiser.damage, canAttack, canRepair, getTexture(computer));
+        
+    }
+    
+    private static String getTexture(boolean computer){
         if (computer){
-            shipTexture = "ECruiser128";
+            return "ECruiser128";
+        }
+        else {
+            return "PCruiser128";
         }
     }
 }

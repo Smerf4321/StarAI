@@ -14,16 +14,22 @@ public class Fighter extends Ship{
     static int damage = 1;
     static boolean canAttack = true;
     static boolean canRepair = false;
-    static String shipTexture = "PFighters128";
+    static String shipTexture;
 
     /**
      * Fighter constructor
      * @param computer whether the ship is controlled by a computer
      */
     public Fighter(boolean computer, Spot spot) {
-        super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, shipTexture, spot);
+        super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, getTexture(computer));
+    }
+    
+    private static String getTexture(boolean computer){
         if (computer){
-            shipTexture = "EFighters128";
+            return "EFighters128";
+        }
+        else {
+            return "PFighters128";
         }
     }
 }

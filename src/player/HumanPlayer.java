@@ -1,5 +1,7 @@
 package player;
 
+import ships.Ship;
+
 /**
  * This is a concrete implementation of a human player
  * @author Patryk

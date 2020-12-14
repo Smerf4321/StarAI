@@ -10,7 +10,7 @@ import board.Spot;
  * This is an abstract class that defines common features of each ship
  * @author Patryk
  */
-public abstract class Ship implements Drawable{
+public abstract class Ship {
     private boolean killed = false;
     private boolean computer = false;
     private Spot spot;
@@ -35,9 +35,8 @@ public abstract class Ship implements Drawable{
      * @param canAttack defines whether the ship can take attack action
      * @param canRepair defines whether the ship can take repair action
      * @param shipTexture texture of the ship
-     * @param spot pointer to the spot the ship is on
      */
-    public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair, String shipTexture, Spot spot){
+    public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair, String shipTexture){
         this.computer = computer;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
@@ -45,12 +44,6 @@ public abstract class Ship implements Drawable{
         this.canAttack = canAttack;
         this.canRepair = canRepair;
         this.shipTexture = shipTexture;
-        this.spot = spot;
-    }
-    
-    @Override
-    public void Draw(){
-        DrawQuadTexture(QuickTextureLoad(shipTexture), spot.getX(), spot.getY(), 128, 128);
     }
     
     public void setComputer (boolean computer){

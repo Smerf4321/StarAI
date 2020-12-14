@@ -48,6 +48,10 @@ public class Game {
         this.state = state;
     }
     
+    public Ship selectShip(){
+        board.getShipList().
+    }
+    
     /**
      * Calls functions responsible for specific player actions
      * @param player The player 

@@ -2,15 +2,18 @@ package board;
 
 import static GUIHelpers.DrawHelper.DrawQuadTexture;
 import static GUIHelpers.DrawHelper.QuickTextureLoad;
+import GUIHelpers.Drawable;
+import ships.Ship;
 
 /**
  * This class defines a spot on the board
  * @author Patryk
  */
-public class Spot {
+public class Spot implements Drawable{
     private final float x;
     private final float y;
     private final String spotTexture = "emptyspot128";
+    private Ship ship = null;
     
     /**
      * This is a constructor for an empty spot
@@ -23,10 +26,15 @@ public class Spot {
     }
     
     /**
-     * Draws the spot
+     * Draws the spot and the ship on it
      */
+    @Override
     public void Draw(){
         DrawQuadTexture(QuickTextureLoad(spotTexture), x, y, 128, 128);
+        
+        if (ship != null){
+            DrawQuadTexture(QuickTextureLoad(ship.getShipTexture()), x, y, 128, 128);
+        }
     }
     
     /**
@@ -43,5 +51,17 @@ public class Spot {
      */
     public float getY(){
         return y;
+    }
+    
+    public void setShip(Ship ship){
+        this.ship = ship;
+    }
+     
+    public Ship getShip(){
+        return ship;
+    }
+    
+    public void removeShip(){
+        ship = null;
     }
 }

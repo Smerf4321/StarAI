@@ -75,4 +75,8 @@ public final class Board implements Drawable{
     public List<Ship> getShipList(){
         return ships;
     }
+    
+    public void setPShip(Ship ship, Spot spot){
+        ships.add(ship);
+    }
 }
