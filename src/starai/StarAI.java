@@ -1,5 +1,7 @@
 package starai;
-import GUI.BoardGUI;
+import mechanics.Game;
+import player.ComputerPlayer;
+import player.HumanPlayer;
 
 /**
  *
@@ -11,7 +13,7 @@ public class StarAI {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new BoardGUI(10, 7);
+        Game game = new Game(new HumanPlayer(), new ComputerPlayer());
     }
     
 }

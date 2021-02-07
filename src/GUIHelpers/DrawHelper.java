@@ -50,7 +50,7 @@ public class DrawHelper {
         glEnd();
     }
     
-    public static void DrawQuadTexture(Texture texture, float startX, float startY, float width, float length){
+    public static void DrawQuadTexture(Texture texture, float startX, float startY, float width, float height){
         texture.bind();
         glTranslatef(startX, startY, 0);
         glBegin(GL_QUADS);
@@ -62,10 +62,10 @@ public class DrawHelper {
         glVertex2f(width, 0);
         
         glTexCoord2f(1, 1);
-        glVertex2f(width, length);
+        glVertex2f(width, height);
         
         glTexCoord2f(0, 1);
-        glVertex2f(0, length);
+        glVertex2f(0, height);
         glEnd();
         
         glLoadIdentity();

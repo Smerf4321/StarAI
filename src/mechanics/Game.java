@@ -1,8 +1,11 @@
 package mechanics;
 
+import GUI.BoardGUI;
 import board.Board;
 import board.Spot;
+import java.util.ArrayList;
 import java.util.List;
+import org.lwjgl.input.Mouse;
 import player.Player;
 import ships.Carrier;
 import ships.Ship;
@@ -12,24 +15,28 @@ import ships.Ship;
  * @author Patryk
  */
 public class Game {
-    private Player[] players;
-    private Board board;
+    private final Player[] players;
+    private final Board board;
     private Player currentTurn;
     private GameState state;
-    private List<Action> movesThisTurn;
+    private ArrayList<Action> movesThisTurn;
+    private int boardWidth = 10;
+    private int boardHeight = 7;
+    
+    private Ship selectedShip;
     
     /**
      * Function that creates the environment for a new game
      * @param p1 Player 1
      * @param p2 Player 2
      */
-    public void initialize (Player p1, Player p2){
-        players[0] = p1;
-        players[1] = p2;
-        
-        board = new Board(20, 15);
+    public Game (Player p1, Player p2){
+        players = new Player[]{p1, p2};
+        board = new Board(boardWidth, boardHeight);
+        BoardGUI boardGUI = new BoardGUI(boardWidth, boardHeight, board);
         currentTurn = p1;
-        movesThisTurn.clear();
+        movesThisTurn = new ArrayList<>();
+        
     }
    
     /**
@@ -49,7 +56,18 @@ public class Game {
     }
     
     public Ship selectShip(){
-        board.getShipList().
+        return board
+                .getSpot((int) Math.floor(Mouse.getX() / 128), (int) Math.floor((boardHeight*128 - Mouse.getY() - 1) / 128))
+                .getShip();
+    }
+    
+    public void Update(){
+        if (Mouse.isButtonDown(0) && Mouse.getEventButtonState()){
+            Ship clickedShip = board.getSpot((int) Math.floor(Mouse.getX() / 128), (int) Math.floor((boardHeight*128 - Mouse.getY() - 1) / 128)).getShip();
+            if ((clickedShip.isComputer() && currentTurn.isComputer()) && !(clickedShip.isComputer() && currentTurn.isComputer())){
+                selectedShip = selectShip();
+            }
+        }
     }
     
     /**

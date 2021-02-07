@@ -19,7 +19,7 @@ public class Carrier extends Ship{
      * Carrier constructor
      * @param computer whether the ship is controlled by a computer
      */
-    public Carrier(boolean computer, Spot spot) {
+    public Carrier(boolean computer) {
         super(computer, Carrier.maxHealth, Carrier.damage, canAttack, canRepair, getTexture(computer));
     }
     

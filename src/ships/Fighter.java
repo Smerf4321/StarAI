@@ -20,7 +20,7 @@ public class Fighter extends Ship{
      * Fighter constructor
      * @param computer whether the ship is controlled by a computer
      */
-    public Fighter(boolean computer, Spot spot) {
+    public Fighter(boolean computer) {
         super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, getTexture(computer));
     }
     
