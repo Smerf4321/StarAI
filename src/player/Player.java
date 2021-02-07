@@ -15,4 +15,6 @@ public abstract class Player {
     public void passTurn(){
         isTurn = !isTurn;
     }
+
+    public abstract void Update();
 }

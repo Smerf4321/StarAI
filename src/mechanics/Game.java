@@ -37,7 +37,7 @@ public class Game {
         Player p1 = new HumanPlayer(board, true);
         Player p2 = new ComputerPlayer();
         players = new Player[]{p1, p2};
-        new BoardGUI(boardWidth, boardHeight, board);
+        new BoardGUI(boardWidth, boardHeight, board, p1, p2);
         currentTurn = p1;
         movesThisTurn = new ArrayList<>();
         

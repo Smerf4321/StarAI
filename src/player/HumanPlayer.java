@@ -11,8 +11,8 @@ import ships.Ship;
 public class HumanPlayer extends Player{
     
     private Board board;
-    
     private Ship selectedShip;
+    private boolean mouseButton0Pressed = false;
     
     public HumanPlayer(Board board, boolean isTurn){
         this.computer = false;
@@ -20,20 +20,15 @@ public class HumanPlayer extends Player{
         this.board = board;
     }
     
-    public Ship selectShip(){
-        return board
-                .getSpot((int) Math.floor(Mouse.getX() / 128), (int) Math.floor((board.getHeight()*128 - Mouse.getY() - 1) / 128))
-                .getShip();
-    }
-    
+    @Override
     public void Update(){
-        if (Mouse.isButtonDown(0)){
-            System.out.println("click");
+        if (Mouse.isButtonDown(0) && !mouseButton0Pressed){
             Ship clickedShip = board.getSpot((int) Math.floor(Mouse.getX() / 128), (int) Math.floor((board.getHeight()*128 - Mouse.getY() - 1) / 128)).getShip();
             if (!clickedShip.isComputer() && isTurn){
-                selectedShip = selectShip();
+                selectedShip = clickedShip;
                 System.out.println(selectedShip.getShipTexture());
             }
         }
+        mouseButton0Pressed = Mouse.isButtonDown(0);
     }
 }
