@@ -18,6 +18,7 @@ public class BoardGUI {
         while(!Display.isCloseRequested()){
             Clock.update();
             board.Draw();
+            
 
             Display.update();
             Display.sync(60);

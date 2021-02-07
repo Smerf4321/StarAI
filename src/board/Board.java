@@ -85,4 +85,12 @@ public final class Board implements Drawable{
         ships.add(ship);
         spot.setShip(ship);
     }
+    
+    public int getHeight(){
+        return this.height;
+    }
+    
+    public int getWidth(){
+        return this.width;
+    }
 }

@@ -6,8 +6,13 @@ package player;
  */
 public abstract class Player {
     protected boolean computer;
+    protected boolean isTurn;
     
     public boolean isComputer(){
         return this.computer;
+    }
+    
+    public void passTurn(){
+        isTurn = !isTurn;
     }
 }

@@ -6,6 +6,8 @@ import board.Spot;
 import java.util.ArrayList;
 import java.util.List;
 import org.lwjgl.input.Mouse;
+import player.ComputerPlayer;
+import player.HumanPlayer;
 import player.Player;
 import ships.Carrier;
 import ships.Ship;
@@ -23,17 +25,19 @@ public class Game {
     private int boardWidth = 10;
     private int boardHeight = 7;
     
-    private Ship selectedShip;
+    
     
     /**
      * Function that creates the environment for a new game
-     * @param p1 Player 1
-     * @param p2 Player 2
+     * @param p1 Player 1 human player
+     * @param p2 Player 2 computer player
      */
-    public Game (Player p1, Player p2){
-        players = new Player[]{p1, p2};
+    public Game (){
         board = new Board(boardWidth, boardHeight);
-        BoardGUI boardGUI = new BoardGUI(boardWidth, boardHeight, board);
+        Player p1 = new HumanPlayer(board, true);
+        Player p2 = new ComputerPlayer();
+        players = new Player[]{p1, p2};
+        new BoardGUI(boardWidth, boardHeight, board);
         currentTurn = p1;
         movesThisTurn = new ArrayList<>();
         
@@ -55,20 +59,7 @@ public class Game {
         this.state = state;
     }
     
-    public Ship selectShip(){
-        return board
-                .getSpot((int) Math.floor(Mouse.getX() / 128), (int) Math.floor((boardHeight*128 - Mouse.getY() - 1) / 128))
-                .getShip();
-    }
     
-    public void Update(){
-        if (Mouse.isButtonDown(0) && Mouse.getEventButtonState()){
-            Ship clickedShip = board.getSpot((int) Math.floor(Mouse.getX() / 128), (int) Math.floor((boardHeight*128 - Mouse.getY() - 1) / 128)).getShip();
-            if ((clickedShip.isComputer() && currentTurn.isComputer()) && !(clickedShip.isComputer() && currentTurn.isComputer())){
-                selectedShip = selectShip();
-            }
-        }
-    }
     
     /**
      * Calls functions responsible for specific player actions
