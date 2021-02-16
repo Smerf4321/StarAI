@@ -2,10 +2,8 @@ package mechanics;
 
 import GUI.BoardGUI;
 import board.Board;
-import board.Spot;
 import java.util.ArrayList;
 import java.util.List;
-import org.lwjgl.input.Mouse;
 import player.ComputerPlayer;
 import player.HumanPlayer;
 import player.Player;
@@ -21,9 +19,10 @@ public class Game {
     private final Board board;
     private Player currentTurn;
     private GameState state;
-    private ArrayList<Action> movesThisTurn;
     private int boardWidth = 10;
     private int boardHeight = 7;
+    private Player p1;
+    private Player p2;
     
     
     
@@ -32,12 +31,11 @@ public class Game {
      */
     public Game (){
         board = new Board(boardWidth, boardHeight);
-        Player p1 = new HumanPlayer(board, true);
-        Player p2 = new ComputerPlayer();
+        p1 = new HumanPlayer(board, this);
+        p2 = new ComputerPlayer(board, this);
         players = new Player[]{p1, p2};
         new BoardGUI(boardWidth, boardHeight, board, p1, p2);
         currentTurn = p1;
-        movesThisTurn = new ArrayList<>();
         
     }
    
@@ -57,164 +55,19 @@ public class Game {
         this.state = state;
     }
     
-    
-    
     /**
-     * Calls functions responsible for specific player actions
-     * @param player The player 
-     * @param startX x-coord of the starting point
-     * @param startY y-coord of the starting point
-     * @param endX x-coord of the end point (target)
-     * @param endY y-coord of the end point (target
-     * @param actionType MOVE, ATTACK, REPAIR
-     * @return returns whether the action was possible/successful
+     * Ends the turn of the current player 
+     * and gives the turn to the other player
      */
-    public boolean playerMove(Player player, int startX, int startY, int endX, int endY, ActionType actionType, Ship ship){
-        Spot startSpot = board.getSpot(startX, startY); 
-        
-        //checks if there is a ship in the selected spot
-        //and if the ship has initiative e.g. can act this turn
-        //and if it is the players ship and if it is the players turn
-        if (ship == null && !ship.getInitiative() && !isPlayerValid(ship, player)){
-            return false;
+    public void endTurn(){
+        if (currentTurn == p1){
+            currentTurn = p2;
+            p2.gainTurn();
         }
-        
-        Spot endSpot = board.getSpot(endX, endY); 
-        Action move = new Action(player, startSpot, endSpot, ship); 
-
-        switch (actionType) {
-            case MOVE:
-                return this.makeMove(move, player);
-            case ATTACK:
-                return this.makeAttack(move, player);
-            case REPAIR:
-                return this.makeRepair(move, player);
-            default:
-                return false;
+        else {
+            currentTurn = p1;
+            p1.gainTurn();
         }
-    }
-    
-    /**
-     * Function that defines Action functionality for a ship
-     * @param move Action class of a specific move
-     * @param player Player doing the move
-     * @return whether it was possible/successful
-     */
-    private boolean makeMove(Action move, Player player) 
-    { 
-        Ship startShip = move.getShipMoved(); 
-         
-        // is the destination in range 
-        if (!isInRange(move, startShip.getMovementRange())) { 
-            return false; 
-        } 
-  
-        // is the destination empty
-        if (isSpotEmpty(move.getEnd())) { 
-            return false;
-        } 
-  
-        // store the move 
-        movesThisTurn.add(move); 
-  
-        // move piece from the start spot to end spot 
-        move.getEnd().setShip(move.getStart().getShip());
-        move.getStart().setShip(null); 
-        
-        // set the ship as already activated
-        startShip.spendInitiative();
-  
-        return true; 
-    } 
-    
-    //TODO add win condition 
-    /**
-     * Function that defines Attack functionality for a ship
-     * @param move Action class of a specific move
-     * @param player Player doing the move
-     * @return whether it was possible/successful
-     */
-    private boolean makeAttack (Action move, Player player){
-        Ship startShip = move.getStart().getShip(); 
-        Ship endShip = move.getEnd().getShip();
-  
-        //can the ship attack
-        if (!startShip.getCanAttack()){
-            return false;
-        }
-        
-        // is the target in range 
-        if (!isInRange(move, startShip.getWeaponsRange())) { 
-            return false; 
-        }
-        
-        // is there a target
-        if (!isSpotEmpty(move.getEnd())) { 
-            return false;
-        } 
-        
-        //store the move
-        movesThisTurn.add(move); 
-        
-        // assign damage to the target
-        endShip.damage(startShip.getWeaponsDamage());
-        
-        // set the ship as already activated
-        startShip.spendInitiative();
-        
-        return true;
-    }
-    
-    /**
-     * Function that defines Repair functionality for a ship
-     * @param move Action class of a specific move
-     * @param player Player doing the move
-     * @return whether it was possible/successful
-     */
-    private boolean makeRepair (Action move, Player player){
-        Ship startShip = move.getStart().getShip();  
-        Ship endShip = move.getEnd().getShip();
-        
-        //can the ship repair
-        if (!startShip.getCanRepair()){
-            return false;
-        }
-        
-        // is the target in range 
-        if (!isInRange(move, startShip.getWeaponsRange())) { 
-            return false; 
-        } 
-        
-        // is there a target in the spot and if it belongs to the player
-        if ((!isSpotEmpty(move.getEnd())) || (!move.getEnd().getShip().isComputer() == player.isComputer())) { 
-            return false;
-        } 
-        
-        //store the move
-        movesThisTurn.add(move); 
-        
-        //assign repair to the target
-        endShip.repair(startShip.getWeaponsDamage());
-        
-        // set the ship as already activated
-        startShip.spendInitiative();
-        
-        return true;
-    }
-    
-    //checks if it is the players turn and if the ship doing an action belongs to the player
-    private boolean isPlayerValid(Ship ship, Player player){
-        return ((player == currentTurn) || (player.isComputer() == ship.isComputer()));
-    }
-    
-    //TODO add more proper pathfinding, so that ships block movement
-    private boolean isInRange (Action move, int range){
-        return (Ship.isSpotinRange(board, move.getStart(),move.getEnd(), range));
-    }
-    
-    //checks if the Spot has no ship on it
-    private boolean isSpotEmpty (Spot spot){
-        return spot.getShip() == null;
     }
     
     /**
