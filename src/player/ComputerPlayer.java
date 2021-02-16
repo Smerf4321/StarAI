@@ -15,7 +15,6 @@ public class ComputerPlayer extends Player{
     
     public ComputerPlayer(Board board, Game game){
         this.computer = true;
-        this.isTurn = false;
         this.board = board;
         this.game = game;
     }

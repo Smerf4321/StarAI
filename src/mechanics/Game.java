@@ -2,7 +2,6 @@ package mechanics;
 
 import GUI.BoardGUI;
 import board.Board;
-import java.util.ArrayList;
 import java.util.List;
 import player.ComputerPlayer;
 import player.HumanPlayer;
@@ -12,12 +11,12 @@ import ships.Ship;
 
 /**
  * Game class defines a singular game
- * @author Patryk
+ * @author Patryk Neter
  */
 public class Game {
     private final Player[] players;
     private final Board board;
-    private Player currentTurn;
+    private int currentTurn;
     private GameState state;
     private int boardWidth = 10;
     private int boardHeight = 7;
@@ -34,9 +33,8 @@ public class Game {
         p1 = new HumanPlayer(board, this);
         p2 = new ComputerPlayer(board, this);
         players = new Player[]{p1, p2};
+        currentTurn = 1;
         new BoardGUI(boardWidth, boardHeight, board, p1, p2);
-        currentTurn = p1;
-        
     }
    
     /**
@@ -60,14 +58,21 @@ public class Game {
      * and gives the turn to the other player
      */
     public void endTurn(){
-        if (currentTurn == p1){
-            currentTurn = p2;
-            p2.gainTurn();
+        if (currentTurn == 1){
+            currentTurn = 2;
         }
         else {
-            currentTurn = p1;
-            p1.gainTurn();
+            currentTurn = 1;
         }
+    }
+    
+    /**
+     * Returns true if current turn belongs to the player
+     * @param p number of the player (1 - human, 2 - computer)
+     * @return 
+     */
+    public boolean isTurnMine(int p){
+        return currentTurn == p;
     }
     
     /**

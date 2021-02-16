@@ -3,6 +3,7 @@ package player;
 import board.Board;
 import board.Spot;
 import mechanics.Game;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 /**
@@ -15,10 +16,10 @@ public class HumanPlayer extends Player{
     private Spot currentSpot;
     private boolean mouseButton0Pressed = false;
     private boolean mouseButton1Pressed = false;
+    private boolean keyboardButtonPressed = false;
     
     public HumanPlayer(Board board, Game game){
         this.computer = false;
-        this.isTurn = true;
         this.board = board;
         this.game = game;
     }
@@ -28,13 +29,19 @@ public class HumanPlayer extends Player{
      */
     @Override
     public void Update(){
-        if (isTurn){
+        //Button to pass the turn. Currently can be used to pass computers turn
+        if (Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !keyboardButtonPressed){
+            game.endTurn();
+        }
+        keyboardButtonPressed = Keyboard.isKeyDown(Keyboard.KEY_SPACE);
+        
+        if (game.isTurnMine(1)){
             //Left Mouse button
             //Checks if the clicked spot contains a valid ship and saves that spot
             if (Mouse.isButtonDown(0) && !mouseButton0Pressed){
                 Spot clickedSpot = board.getSpot((int) Math.floor(Mouse.getX() / 128), (int) Math.floor((board.getHeight()*128 - Mouse.getY() - 1) / 128));
 
-                if (clickedSpot.getShip() != null && !clickedSpot.getShip().isComputer() && isTurn){
+                if (clickedSpot.getShip() != null && !clickedSpot.getShip().isComputer()){
                     currentSpot = clickedSpot;       
                     System.out.println(clickedSpot.getShip().getShipTexture());
                 }
@@ -91,7 +98,7 @@ public class HumanPlayer extends Player{
                     targetSpot.getShip().repair(currentSpot.getShip().getWeaponsDamage());
                 }
                 currentSpot = null;
-                passTurn();
+                game.endTurn();
             }
 
             mouseButton0Pressed = Mouse.isButtonDown(0);

@@ -3,7 +3,6 @@ package GUI;
 import GUIHelpers.Clock;
 import static GUIHelpers.DrawHelper.*;
 import board.Board;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import player.Player;
 
