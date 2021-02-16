@@ -20,7 +20,7 @@ public class Carrier extends Ship{
      * @param computer whether the ship is controlled by a computer
      */
     public Carrier(boolean computer) {
-        super(computer, Carrier.maxHealth, Carrier.damage, canAttack, canRepair, getTexture(computer));
+        super(computer, Carrier.maxHealth, Carrier.damage, canAttack, canRepair, Carrier.movementRange, Carrier.weaponsRange, getTexture(computer));
     }
     
     private static String getTexture(boolean computer){

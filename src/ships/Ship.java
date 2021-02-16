@@ -1,8 +1,5 @@
 package ships;
 
-import static GUIHelpers.DrawHelper.DrawQuadTexture;
-import static GUIHelpers.DrawHelper.QuickTextureLoad;
-import GUIHelpers.Drawable;
 import board.Board;
 import board.Spot;
 
@@ -16,8 +13,8 @@ public abstract class Ship {
     private Spot spot;
     private final int maxHealth;
     private int currentHealth;
-    private int movementRange;
-    private int weaponsRange;
+    private final int movementRange;
+    private final int weaponsRange;
     private final int weaponsDamage;
     private final String shipTexture;
     
@@ -34,12 +31,16 @@ public abstract class Ship {
      * @param weaponsDamage damage dealt by the ship
      * @param canAttack defines whether the ship can take attack action
      * @param canRepair defines whether the ship can take repair action
+     * @param movementRange maximum range for movement in spots
+     * @param weaponsRange maximum range for attacks in spots 
      * @param shipTexture texture of the ship
      */
-    public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair, String shipTexture){
+    public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair, int movementRange, int weaponsRange, String shipTexture){
         this.computer = computer;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
+        this.movementRange = movementRange;
+        this.weaponsRange = weaponsRange;
         this.weaponsDamage = weaponsDamage;
         this.canAttack = canAttack;
         this.canRepair = canRepair;
@@ -99,9 +100,11 @@ public abstract class Ship {
      * @param damage int damage dealt to this ship
      */
     public void damage (int damage){
-        currentHealth -= damage;
-        if (currentHealth <= 0){
-            killed = true;
+        if (damage > 0){
+            currentHealth -= damage;
+            if (currentHealth <= 0){
+                killed = true;
+            }
         }
     }
     
@@ -110,9 +113,11 @@ public abstract class Ship {
      * @param repair int repair done on this ship
      */
     public void repair (int repair){
-        currentHealth += repair;
-        if (currentHealth > maxHealth){
-            currentHealth = maxHealth;
+        if (repair > 0){
+            currentHealth += repair;
+            if (currentHealth > maxHealth){
+                currentHealth = maxHealth;
+            }
         }
     }
     

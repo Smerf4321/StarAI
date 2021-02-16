@@ -21,7 +21,7 @@ public class Cruiser extends Ship{
      * @param computer whether the ship is controlled by a computer
      */
     public Cruiser(boolean computer) {
-        super(computer, Cruiser.maxHealth, Cruiser.damage, canAttack, canRepair, getTexture(computer));
+        super(computer, Cruiser.maxHealth, Cruiser.damage, canAttack, canRepair, Cruiser.movementRange, Cruiser.weaponsRange, getTexture(computer));
         
     }
     

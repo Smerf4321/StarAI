@@ -29,8 +29,6 @@ public class Game {
     
     /**
      * Function that creates the environment for a new game
-     * @param p1 Player 1 human player
-     * @param p2 Player 2 computer player
      */
     public Game (){
         board = new Board(boardWidth, boardHeight);

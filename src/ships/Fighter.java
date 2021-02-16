@@ -21,7 +21,7 @@ public class Fighter extends Ship{
      * @param computer whether the ship is controlled by a computer
      */
     public Fighter(boolean computer) {
-        super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, getTexture(computer));
+        super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, Fighter.movementRange, Fighter.weaponsRange, getTexture(computer));
     }
     
     private static String getTexture(boolean computer){
