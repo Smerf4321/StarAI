@@ -20,7 +20,7 @@ public final class Board implements Drawable{
     public Board(int width, int height){
         this.height = height;
         this.width = width;
-        background = new Background(1,1);
+        background = new Background();
         setMap();
     }
     
@@ -60,6 +60,16 @@ public final class Board implements Drawable{
         setShip(new Fighter(true), map[8][2]);
         setShip(new Fighter(true), map[8][3]);
         setShip(new Fighter(true), map[8][4]);
+    }
+    
+    public void loadTexture(){
+        background.loadTexture();
+        for (int x = 0; x < width; x++){
+            for (int y = 0; y < height; y++){
+                Spot spot = map[x][y];
+                spot.loadTexture();
+            }
+        } 
     }
     
     @Override

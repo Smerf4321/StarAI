@@ -1,13 +1,16 @@
 package ships;
 
-import board.Board;
+import static GUIHelpers.DrawHelper.DrawQuadTexture;
+import static GUIHelpers.DrawHelper.QuickTextureLoad;
+import GUIHelpers.Drawable;
 import board.Spot;
+import org.newdawn.slick.opengl.Texture;
 
 /**
  * This is an abstract class that defines common features of each ship
  * @author Patryk
  */
-public abstract class Ship {
+public abstract class Ship implements Drawable{
     private boolean killed = false;
     private boolean computer = false;
     private Spot spot;
@@ -16,7 +19,8 @@ public abstract class Ship {
     private final int movementRange;
     private final int weaponsRange;
     private final int weaponsDamage;
-    private final String shipTexture;
+    private String shipTextureName;
+    private Texture shipTexture;
     
     //boolean that define whether the ship have acted this turn
     private boolean initiative = false;
@@ -33,9 +37,9 @@ public abstract class Ship {
      * @param canRepair defines whether the ship can take repair action
      * @param movementRange maximum range for movement in spots
      * @param weaponsRange maximum range for attacks in spots 
-     * @param shipTexture texture of the ship
+     * @param shipTextureName name of the ships texture
      */
-    public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair, int movementRange, int weaponsRange, String shipTexture){
+    public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair, int movementRange, int weaponsRange, String shipTextureName){
         this.computer = computer;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
@@ -44,7 +48,7 @@ public abstract class Ship {
         this.weaponsDamage = weaponsDamage;
         this.canAttack = canAttack;
         this.canRepair = canRepair;
-        this.shipTexture = shipTexture;
+        this.shipTextureName = shipTextureName;
     }
     
     public void setComputer (boolean computer){
@@ -121,25 +125,11 @@ public abstract class Ship {
         }
     }
     
-    /**
-     * Function that checks if the starting spot is in range of a specified spot
-     * @param board Board class, e.g. current game board
-     * @param start starting Spot for the calculation
-     * @param end ending Spot for the calculation
-     * @param range int limit (movement range etc) 
-     * @return whether Spot End is in specified range from Spot Start
-     */
-    public static boolean isSpotinRange (Board board, Spot start, Spot end, int range){
-        float x = Math.abs(start.getX() - end.getX()); 
-        float y = Math.abs(start.getY() - end.getY());
-        return x+y <= range;
+    public void loadTexture(){
+        this.shipTexture = QuickTextureLoad(shipTextureName);
     }
     
-    /**
-     * Returns the texture name of the ship
-     * @return string shipTexture
-     */
-    public String getShipTexture(){
-        return shipTexture;
+    public void Draw(float x, float y){
+        DrawQuadTexture(shipTexture, x, y, 128, 128);
     }
 }

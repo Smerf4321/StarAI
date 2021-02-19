@@ -42,8 +42,7 @@ public class HumanPlayer extends Player{
                 Spot clickedSpot = board.getSpot((int) Math.floor(Mouse.getX() / 128), (int) Math.floor((board.getHeight()*128 - Mouse.getY() - 1) / 128));
 
                 if (clickedSpot.getShip() != null && !clickedSpot.getShip().isComputer()){
-                    currentSpot = clickedSpot;       
-                    System.out.println(clickedSpot.getShip().getShipTexture());
+                    currentSpot = clickedSpot;
                 }
             }
 

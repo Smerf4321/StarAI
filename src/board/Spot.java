@@ -3,6 +3,7 @@ package board;
 import static GUIHelpers.DrawHelper.DrawQuadTexture;
 import static GUIHelpers.DrawHelper.QuickTextureLoad;
 import GUIHelpers.Drawable;
+import org.newdawn.slick.opengl.Texture;
 import ships.Ship;
 
 /**
@@ -12,7 +13,7 @@ import ships.Ship;
 public class Spot implements Drawable{
     private final float x;
     private final float y;
-    private final String spotTexture = "emptyspot128";
+    private  Texture spotTexture;
     private Ship ship = null;
     
     /**
@@ -25,15 +26,23 @@ public class Spot implements Drawable{
         this.y = y;
     }
     
+    public void loadTexture(){
+        this.spotTexture = QuickTextureLoad("emptySpot128");
+        
+        if (ship != null){
+            ship.loadTexture();
+        }
+    }
+    
     /**
      * Draws the spot and the ship on it
      */
     @Override
     public void Draw(){
-        DrawQuadTexture(QuickTextureLoad(spotTexture), x, y, 128, 128);
+        DrawQuadTexture(spotTexture, x, y, 128, 128);
         
         if (ship != null){
-            DrawQuadTexture(QuickTextureLoad(ship.getShipTexture()), x, y, 128, 128);
+            ship.Draw(x, y);
         }
     }
     

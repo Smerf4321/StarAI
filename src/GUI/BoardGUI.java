@@ -16,6 +16,8 @@ public class BoardGUI {
         
         BeginSession(width, height);
         
+        board.loadTexture();
+        
         while(!Display.isCloseRequested()){
             Clock.update();
             board.Draw();
