@@ -18,9 +18,10 @@ public class Carrier extends Ship{
     /**
      * Carrier constructor
      * @param computer whether the ship is controlled by a computer
+     * @param spot spot where the ship is
      */
-    public Carrier(boolean computer) {
-        super(computer, Carrier.maxHealth, Carrier.damage, canAttack, canRepair, Carrier.movementRange, Carrier.weaponsRange, getTexture(computer));
+    public Carrier(boolean computer, Spot spot) {
+        super(computer, Carrier.maxHealth, Carrier.damage, canAttack, canRepair, Carrier.movementRange, Carrier.weaponsRange, getTexture(computer), spot);
     }
     
     private static String getTexture(boolean computer){

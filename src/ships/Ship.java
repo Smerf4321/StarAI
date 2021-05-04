@@ -2,6 +2,7 @@ package ships;
 
 import static GUIHelpers.DrawHelper.DrawQuadTexture;
 import static GUIHelpers.DrawHelper.QuickTextureLoad;
+import GUIHelpers.Drawable;
 import board.Spot;
 import org.newdawn.slick.opengl.Texture;
 
@@ -9,7 +10,7 @@ import org.newdawn.slick.opengl.Texture;
  * This is an abstract class that defines common features of each ship
  * @author Patryk
  */
-public abstract class Ship{
+public abstract class Ship implements Drawable{
     private boolean killed = false;
     private boolean computer = false;
     private Spot spot;
@@ -37,8 +38,9 @@ public abstract class Ship{
      * @param movementRange maximum range for movement in spots
      * @param weaponsRange maximum range for attacks in spots 
      * @param shipTextureName name of the ships texture
+     * @param spot spot where the ship is
      */
-    public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair, int movementRange, int weaponsRange, String shipTextureName){
+    public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair, int movementRange, int weaponsRange, String shipTextureName, Spot spot){
         this.computer = computer;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
@@ -48,6 +50,7 @@ public abstract class Ship{
         this.canAttack = canAttack;
         this.canRepair = canRepair;
         this.shipTextureName = shipTextureName;
+        this.spot = spot;
     }
     
     public void setComputer (boolean computer){
@@ -128,7 +131,7 @@ public abstract class Ship{
         this.shipTexture = QuickTextureLoad(shipTextureName);
     }
     
-    public void Draw(float x, float y){
-        DrawQuadTexture(shipTexture, x, y, 128, 128);
+    public void Draw(){
+        DrawQuadTexture(shipTexture, spot.getX(), spot.getY(), 128, 128);
     }
 }

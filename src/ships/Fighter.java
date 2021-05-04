@@ -1,5 +1,7 @@
 package ships;
 
+import board.Spot;
+
 /**
  * This is a concrete implementation of Fighter which extends Ship
  * @author Patryk
@@ -16,9 +18,10 @@ public class Fighter extends Ship{
     /**
      * Fighter constructor
      * @param computer whether the ship is controlled by a computer
+     * @param spot spot where the ship is
      */
-    public Fighter(boolean computer) {
-        super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, Fighter.movementRange, Fighter.weaponsRange, getTexture(computer));
+    public Fighter(boolean computer, Spot spot) {
+        super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, Fighter.movementRange, Fighter.weaponsRange, getTexture(computer), spot);
     }
     
     private static String getTexture(boolean computer){

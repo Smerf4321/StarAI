@@ -47,19 +47,19 @@ public final class Board implements Drawable{
         
         ships = new ArrayList<>();
         
-        setShip(new Cruiser(false), map[0][2]);
-        setShip(new Carrier(false), map[0][3]);
-        setShip(new Cruiser(false), map[0][4]);
-        setShip(new Fighter(false), map[1][2]);
-        setShip(new Fighter(false), map[1][3]);
-        setShip(new Fighter(false), map[1][4]);
+        setShip(new Cruiser(false, map[0][2]));
+        setShip(new Carrier(false, map[0][3]));
+        setShip(new Cruiser(false, map[0][4]));
+        setShip(new Fighter(false, map[1][2]));
+        setShip(new Fighter(false, map[1][3]));
+        setShip(new Fighter(false, map[1][4]));
 
-        setShip(new Cruiser(true), map[9][2]);
-        setShip(new Carrier(true), map[9][3]);
-        setShip(new Cruiser(true), map[9][4]);
-        setShip(new Fighter(true), map[8][2]);
-        setShip(new Fighter(true), map[8][3]);
-        setShip(new Fighter(true), map[8][4]);
+        setShip(new Cruiser(true, map[9][2]));
+        setShip(new Carrier(true, map[9][3]));
+        setShip(new Cruiser(true, map[9][4]));
+        setShip(new Fighter(true, map[8][2]));
+        setShip(new Fighter(true, map[8][3]));
+        setShip(new Fighter(true, map[8][4]));
     }
     
     public void loadTexture(){
@@ -70,6 +70,9 @@ public final class Board implements Drawable{
                 spot.loadTexture();
             }
         } 
+        ships.forEach((ship) -> {
+            ship.loadTexture();
+        });
     }
     
     @Override
@@ -81,6 +84,9 @@ public final class Board implements Drawable{
                 spot.Draw();
             }
         }    
+        ships.forEach((ship) -> {
+            ship.Draw();
+        });
     }
 
     /**
@@ -91,9 +97,8 @@ public final class Board implements Drawable{
         return ships;
     }
     
-    public void setShip(Ship ship, Spot spot){
+    public void setShip(Ship ship){
         ships.add(ship);
-        spot.setShip(ship);
     }
     
     public int getHeight(){
