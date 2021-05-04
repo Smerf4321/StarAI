@@ -1,7 +1,5 @@
 package ships;
 
-import board.Spot;
-
 /**
  * This is a concrete implementation of Fighter which extends Ship
  * @author Patryk
@@ -14,7 +12,6 @@ public class Fighter extends Ship{
     static int damage = 1;
     static boolean canAttack = true;
     static boolean canRepair = false;
-    static String shipTexture;
 
     /**
      * Fighter constructor

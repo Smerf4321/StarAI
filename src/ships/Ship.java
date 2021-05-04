@@ -2,7 +2,6 @@ package ships;
 
 import static GUIHelpers.DrawHelper.DrawQuadTexture;
 import static GUIHelpers.DrawHelper.QuickTextureLoad;
-import GUIHelpers.Drawable;
 import board.Spot;
 import org.newdawn.slick.opengl.Texture;
 
@@ -10,7 +9,7 @@ import org.newdawn.slick.opengl.Texture;
  * This is an abstract class that defines common features of each ship
  * @author Patryk
  */
-public abstract class Ship implements Drawable{
+public abstract class Ship{
     private boolean killed = false;
     private boolean computer = false;
     private Spot spot;
