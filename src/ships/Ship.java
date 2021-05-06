@@ -134,4 +134,9 @@ public abstract class Ship implements Drawable{
     public void Draw(){
         DrawQuadTexture(shipTexture, spot.getX(), spot.getY(), 128, 128);
     }
+    
+    @Override
+    public String toString(){
+        return shipTextureName;
+    }
 }

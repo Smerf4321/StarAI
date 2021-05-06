@@ -4,8 +4,8 @@ package mechanics;
  * Types of actions a player can take
  * @author Patryk
  */
-public enum ActionType {
+public enum MoveType {
     MOVE,
     ATTACK,
-    REPAIR
+    REPAIR;
 }

@@ -2,7 +2,9 @@ package player;
 
 import board.Board;
 import board.Spot;
+import mechanics.Move;
 import mechanics.Game;
+import mechanics.MoveType;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import ships.Ship;
@@ -38,7 +40,7 @@ public class HumanPlayer extends Player{
         
         if (game.isTurnMine(1)){
             //Left Mouse button
-            //Checks if the clicked spot contains a valid ship and saves that spot
+            //Checks if theere is a ship at the clicked coordinates and saves it
             if (Mouse.isButtonDown(0) && !mouseButton0Pressed){
                 Ship clickedShip = board.getShipAt((int) Math.floor(Mouse.getX() / 128), (int) Math.floor((board.getHeight()*128 - Mouse.getY() - 1) / 128));
 
@@ -64,8 +66,8 @@ public class HumanPlayer extends Player{
                         Math.round(currentShip.spot.getY()/128),  
                         currentShip.getMovementRange())){
 
+                        endTurn(targetSpot, MoveType.MOVE);
                         currentShip.spot = targetSpot;
-                        endTurn();
                     }
                 }
 
@@ -82,10 +84,10 @@ public class HumanPlayer extends Player{
 
                     //Damages the enemy ship and checks if that ship is killed then removes it
                     clickedShip.damage(currentShip.getWeaponsDamage());
+                    endTurn(targetSpot, MoveType.ATTACK);
                     if (clickedShip.isKilled()){
                         board.removeShip(clickedShip);
                     }
-                    endTurn();
                 }
 
                 //Checks if the ship in the selected spot is controlled by friendly and is in range of repair
@@ -100,8 +102,8 @@ public class HumanPlayer extends Player{
                         currentShip.getWeaponsRange())){
 
                     //Repairs the targeted ship
+                    endTurn(targetSpot, MoveType.REPAIR);
                     clickedShip.repair(currentShip.getWeaponsDamage());
-                    endTurn();
                 }
                 
             }
@@ -110,8 +112,14 @@ public class HumanPlayer extends Player{
         }
     }
     
-    public void endTurn(){
+    public void endTurn(Spot targetSpot, MoveType type){
+        Move move = new Move(this, currentShip.spot, targetSpot, currentShip, type);
         currentShip = null;
         game.endTurn();
+    }
+    
+    @Override
+    public String toString(){
+        return "HumanPlayer";
     }
 }

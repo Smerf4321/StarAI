@@ -51,4 +51,10 @@ public class Spot implements Drawable{
     public float getY(){
         return y;
     }
+    
+    @Override
+    public String toString(){
+        String s = "x: " + x + ", y:" + y;
+        return s;
+    }
 }

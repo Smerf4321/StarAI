@@ -5,14 +5,15 @@ import player.Player;
 import ships.Ship;
 
 /**
- * This class defines a Action in game. E.g. one ship taking a singular action in a game
+ * This class defines a Move in game. E.g. one ship taking a singular action in a game
  * @author Patryk
  */
-public class Action {
+public class Move {
     private Player player;
     private Spot start;
     private Spot end;
-    private Ship shipMoved;
+    private Ship ship;
+    private MoveType type;
     
     /**
      * Constructor for an Action
@@ -20,22 +21,17 @@ public class Action {
      * @param start Spot at which the action starts 
      * @param end Spot at which the action ends
      */
-    public Action(Player player, Spot start, Spot end, Ship ship){
+    public Move(Player player, Spot start, Spot end, Ship ship, MoveType type){
         this.player = player; 
         this.start = start; 
         this.end = end; 
-        this.shipMoved = ship;
+        this.ship = ship;
+        this.type = type;
     }
     
-    public Ship getShipMoved(){
-        return shipMoved;
-    }
-    
-    public Spot getStart(){
-        return this.start;
-    }
-    
-    public Spot getEnd(){
-        return this.end;
+    @Override
+    public String toString(){
+        String s = player.toString() + start.toString() + end.toString() + ship.toString() + type.name();
+        return s;
     }
 }
