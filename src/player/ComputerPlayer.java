@@ -25,10 +25,30 @@ public class ComputerPlayer extends Player{
 
     @Override
     public void Update() {
-        if (game.isTurnMine(2)){
+        if (game.isTurnMine(2) && false){
             Random r = new Random();
-            ArrayList moves = getAllMoves();
-            System.out.println(moves.get(r.nextInt(moves.size())).toString());
+            ArrayList<Move> moves = getAllMoves();
+            Move move = moves.get(r.nextInt(moves.size()));
+            
+            System.out.println(move.toString());
+            
+            Ship target;
+            switch(move.type){
+                case MOVE:
+                    move.ship.spot = move.end;
+                    break;
+                case ATTACK:
+                    target = board.getShipAt((int)move.end.getX(), (int)move.end.getY());
+                    target.damage(move.ship.getWeaponsDamage());
+                    if (target.isKilled()){
+                        board.removeShip(target);
+                    }
+                    break;
+                case REPAIR:
+                    target = board.getShipAt((int)move.end.getX(), (int)move.end.getY());
+                    target.repair(target.getWeaponsDamage());
+            }
+            
             game.endTurn();
         }
     }

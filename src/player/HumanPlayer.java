@@ -82,8 +82,8 @@ public class HumanPlayer extends Player{
                         && isInRange
                         (Math.round(targetSpot.getX()/128), 
                         Math.round(targetSpot.getY()/128), 
-                        Math.round(clickedShip.spot.getX()/128), 
-                        Math.round(clickedShip.spot.getY()/128),  
+                        Math.round(currentShip.spot.getX()/128), 
+                        Math.round(currentShip.spot.getY()/128),  
                         currentShip.getWeaponsRange())){
 
                     Move move = new Move(this, currentShip.spot, targetSpot, currentShip, MoveType.ATTACK);
@@ -105,8 +105,8 @@ public class HumanPlayer extends Player{
                         && isInRange
                         (Math.round(targetSpot.getX()/128), 
                         Math.round(targetSpot.getY()/128), 
-                        Math.round(clickedShip.spot.getX()/128), 
-                        Math.round(clickedShip.spot.getY()/128),  
+                        Math.round(currentShip.spot.getX()/128), 
+                        Math.round(currentShip.spot.getY()/128),  
                         currentShip.getWeaponsRange())){
 
                     Move move = new Move(this, currentShip.spot, targetSpot, currentShip, MoveType.REPAIR);

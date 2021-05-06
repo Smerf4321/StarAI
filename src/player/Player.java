@@ -24,7 +24,9 @@ public abstract class Player {
      * @return boolean if the two points are in range then true
      */
     protected boolean isInRange(int targetX, int targetY, int currentX, int currentY, int range){
-        return (Math.abs(targetX - currentX) + Math.abs(targetY - currentY) <= range);
+        boolean a = (Math.abs(targetX - currentX) + Math.abs(targetY - currentY) <= range);
+        System.out.println(a);
+        return a;
     }
 
     public abstract void Update();

@@ -10,10 +10,10 @@ import ships.Ship;
  */
 public class Move {
     private Player player;
-    private Spot start;
-    private Spot end;
-    private Ship ship;
-    private MoveType type;
+    public Spot start;
+    public Spot end;
+    public Ship ship;
+    public MoveType type;
     
     /**
      * Constructor for an Action
