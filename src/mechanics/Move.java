@@ -31,7 +31,7 @@ public class Move {
     
     @Override
     public String toString(){
-        String s = player.toString() + start.toString() + end.toString() + ship.toString() + type.name();
+        String s = player.toString() + ", " + start.toString() + ", " + end.toString() + ", " + ship.toString() + ", " + type.name();
         return s;
     }
 }

@@ -54,7 +54,7 @@ public class Spot implements Drawable{
     
     @Override
     public String toString(){
-        String s = "x: " + x + ", y:" + y;
+        String s = "x:" + x/128 + ", y:" + y/128;
         return s;
     }
 }

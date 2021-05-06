@@ -123,4 +123,8 @@ public final class Board implements Drawable{
     public int getWidth(){
         return this.width;
     }
+    
+    public Spot[][] getMap(){
+        return map;
+    }
 }

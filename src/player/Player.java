@@ -28,4 +28,7 @@ public abstract class Player {
     }
 
     public abstract void Update();
+    
+    @Override
+    public abstract String toString();
 }

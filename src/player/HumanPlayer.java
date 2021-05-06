@@ -66,8 +66,12 @@ public class HumanPlayer extends Player{
                         Math.round(currentShip.spot.getY()/128),  
                         currentShip.getMovementRange())){
 
-                        endTurn(targetSpot, MoveType.MOVE);
+                        Move move = new Move(this, currentShip.spot, targetSpot, currentShip, MoveType.MOVE);
+                        System.out.println(move.toString());
+                        
                         currentShip.spot = targetSpot;
+                        
+                        endTurn();
                     }
                 }
 
@@ -82,12 +86,16 @@ public class HumanPlayer extends Player{
                         Math.round(clickedShip.spot.getY()/128),  
                         currentShip.getWeaponsRange())){
 
+                    Move move = new Move(this, currentShip.spot, targetSpot, currentShip, MoveType.ATTACK);
+                    System.out.println(move.toString());
+                    
                     //Damages the enemy ship and checks if that ship is killed then removes it
                     clickedShip.damage(currentShip.getWeaponsDamage());
-                    endTurn(targetSpot, MoveType.ATTACK);
                     if (clickedShip.isKilled()){
                         board.removeShip(clickedShip);
                     }
+                    
+                    endTurn();
                 }
 
                 //Checks if the ship in the selected spot is controlled by friendly and is in range of repair
@@ -101,9 +109,13 @@ public class HumanPlayer extends Player{
                         Math.round(clickedShip.spot.getY()/128),  
                         currentShip.getWeaponsRange())){
 
+                    Move move = new Move(this, currentShip.spot, targetSpot, currentShip, MoveType.REPAIR);
+                    System.out.println(move.toString());
+                    
                     //Repairs the targeted ship
-                    endTurn(targetSpot, MoveType.REPAIR);
                     clickedShip.repair(currentShip.getWeaponsDamage());
+                    
+                    endTurn();
                 }
                 
             }
@@ -112,8 +124,7 @@ public class HumanPlayer extends Player{
         }
     }
     
-    public void endTurn(Spot targetSpot, MoveType type){
-        Move move = new Move(this, currentShip.spot, targetSpot, currentShip, type);
+    public void endTurn(){
         currentShip = null;
         game.endTurn();
     }

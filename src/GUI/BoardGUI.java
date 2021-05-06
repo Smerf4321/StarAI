@@ -22,6 +22,7 @@ public class BoardGUI {
             Clock.update();
             board.Draw();
             human.Update();
+            computer.Update();
             
             Display.update();
             Display.sync(60);
