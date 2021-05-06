@@ -25,16 +25,6 @@ public final class Board implements Drawable{
     }
     
     /**
-     * Returns a spot with the exact x and y coordinates
-     * @param x x axis coordinate
-     * @param y y axis coordinate
-     * @return Spot class 
-     */
-    public Spot getSpot (int x, int y){
-        return map[x][y];
-    }
-    
-    /**
      * Resets the map to its starting state
      */
     public void setMap (){
@@ -95,6 +85,31 @@ public final class Board implements Drawable{
      */
     public List<Ship> getShipList(){
         return ships;
+    }
+    
+    public Spot getSpot(int x, int y){
+        return map[x][y];
+    }
+    
+    /**
+     * returns a ship at specified coordinates
+     * @param x coordinate
+     * @param y coordinate
+     * @return ship class or null if no ship was found
+     */
+    public Ship getShipAt (int x, int y){
+        Spot spot = map[x][y];
+        Ship ship = null;
+        for (Ship s: ships){
+            if (s.spot == spot) {
+                ship = s;
+            }
+        }
+        return ship;
+    }
+    
+    public void removeShip(Ship s){
+        ships.remove(s);
     }
     
     public void setShip(Ship ship){

@@ -13,7 +13,7 @@ import org.newdawn.slick.opengl.Texture;
 public abstract class Ship implements Drawable{
     private boolean killed = false;
     private boolean computer = false;
-    private Spot spot;
+    public Spot spot;
     private final int maxHealth;
     private int currentHealth;
     private final int movementRange;
