@@ -14,6 +14,7 @@ public class Carrier extends Ship{
     static boolean canAttack = false;
     static boolean canRepair = true;
     static String shipTexture;
+    static int value = 25;
     
     /**
      * Carrier constructor
@@ -21,7 +22,7 @@ public class Carrier extends Ship{
      * @param spot spot where the ship is
      */
     public Carrier(boolean computer, Spot spot) {
-        super(computer, Carrier.maxHealth, Carrier.damage, canAttack, canRepair, Carrier.movementRange, Carrier.weaponsRange, getTexture(computer), spot);
+        super(computer, Carrier.maxHealth, Carrier.damage, canAttack, canRepair, Carrier.movementRange, Carrier.weaponsRange, getTexture(computer), spot, value);
     }
     
     private static String getTexture(boolean computer){

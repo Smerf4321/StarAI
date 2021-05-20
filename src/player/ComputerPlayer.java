@@ -25,12 +25,9 @@ public class ComputerPlayer extends Player{
 
     @Override
     public void Update() {
-        if (game.isTurnMine(2) && false){
-            Random r = new Random();
+        if (game.isTurnMine(2)){
             ArrayList<Move> moves = getAllMoves();
-            Move move = moves.get(r.nextInt(moves.size()));
-            
-            System.out.println(move.toString());
+            Move move = bestMoveChooser(moves);
             
             Ship target;
             switch(move.type){
@@ -38,14 +35,11 @@ public class ComputerPlayer extends Player{
                     move.ship.spot = move.end;
                     break;
                 case ATTACK:
-                    target = board.getShipAt((int)move.end.getX(), (int)move.end.getY());
+                    target = board.getShipAt((int)move.end.getX()/128, (int)move.end.getY()/128);
                     target.damage(move.ship.getWeaponsDamage());
-                    if (target.isKilled()){
-                        board.removeShip(target);
-                    }
                     break;
                 case REPAIR:
-                    target = board.getShipAt((int)move.end.getX(), (int)move.end.getY());
+                    target = board.getShipAt((int)move.end.getX()/128, (int)move.end.getY()/128);
                     target.repair(target.getWeaponsDamage());
             }
             
@@ -63,11 +57,11 @@ public class ComputerPlayer extends Player{
                         Ship targetShip = board.getShipAt(x, y);
                         Spot targetSpot = board.getMap()[x][y];
 
-                        if (targetShip == null && isInRange(x, y, Math.round(ship.spot.getX()/128), Math.round(ship.spot.getY()/128), ship.getMovementRange())){
-                            allMoves.add(new Move(this, ship.spot, targetSpot, ship, MoveType.MOVE));
+                        if ((targetShip == null || targetShip.isKilled()) && isInRange(x, y, Math.round(ship.spot.getX()/128), Math.round(ship.spot.getY()/128), ship.getMovementRange())){
+                            allMoves.add(new Move(this, ship.spot, targetSpot, ship, targetShip, MoveType.MOVE));
                         }
 
-                        if (targetShip != null && isInRange(x, y, Math.round(ship.spot.getX()/128), Math.round(ship.spot.getY()/128), ship.getWeaponsRange())){
+                        if (targetShip != null && !targetShip.isKilled() && isInRange(x, y, Math.round(ship.spot.getX()/128), Math.round(ship.spot.getY()/128), ship.getWeaponsRange())){
                             MoveType type = null;
                             if (ship.getCanRepair() && targetShip.isComputer()){
                                 type = MoveType.REPAIR;
@@ -78,7 +72,7 @@ public class ComputerPlayer extends Player{
                             else {
                                 continue;
                             }
-                            allMoves.add(new Move(this, ship.spot, targetSpot, ship, type));
+                            allMoves.add(new Move(this, ship.spot, targetSpot, ship, targetShip, type));
                         }
                     }
                 }   
@@ -86,6 +80,38 @@ public class ComputerPlayer extends Player{
         }
         
         return allMoves;
+    }
+    
+    private Move bestMoveChooser(ArrayList<Move> moves){
+        Move highestMove = null;
+        for (Move m : moves){
+            if (m.type == MoveType.ATTACK){
+                if (highestMove == null){
+                    highestMove = m;
+                }
+                else {
+                    if (m.target.value > highestMove.target.value){
+                        highestMove = m;
+                    }
+                }
+            }
+            else if (m.type == MoveType.REPAIR && m.target.getHealth() < m.target.getMaxHealth()){
+                if (highestMove == null){
+                    highestMove = m;
+                }
+                else {
+                    if (m.target.value > highestMove.target.value){
+                        highestMove = m;
+                    }
+                }
+            }
+        }
+        if (highestMove == null){
+            Random r = new Random();
+            highestMove = moves.get(r.nextInt(moves.size()));
+        }
+        System.out.println(highestMove.toString());
+        return highestMove;
     }
     
     @Override

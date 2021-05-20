@@ -14,6 +14,7 @@ public class Fighter extends Ship{
     static int damage = 1;
     static boolean canAttack = true;
     static boolean canRepair = false;
+    static int value = 1;
 
     /**
      * Fighter constructor
@@ -21,7 +22,7 @@ public class Fighter extends Ship{
      * @param spot spot where the ship is
      */
     public Fighter(boolean computer, Spot spot) {
-        super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, Fighter.movementRange, Fighter.weaponsRange, getTexture(computer), spot);
+        super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, Fighter.movementRange, Fighter.weaponsRange, getTexture(computer), spot, value);
     }
     
     private static String getTexture(boolean computer){

@@ -75,7 +75,9 @@ public final class Board implements Drawable{
             }
         }    
         ships.forEach((ship) -> {
-            ship.Draw();
+            if (!ship.isKilled()){
+                ship.Draw();
+            }
         });
     }
 
@@ -106,10 +108,6 @@ public final class Board implements Drawable{
             }
         }
         return ship;
-    }
-    
-    public void removeShip(Ship s){
-        ships.remove(s);
     }
     
     public void setShip(Ship ship){

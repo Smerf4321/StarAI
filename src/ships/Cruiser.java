@@ -12,9 +12,10 @@ public class Cruiser extends Ship{
     static int movementRange = 2;
     static int weaponsRange = 2;
     static int damage = 1;
-    static boolean canAttack = false;
-    static boolean canRepair = true;
+    static boolean canAttack = true;
+    static boolean canRepair = false;
     static String shipTexture;
+    static int value = 3;
     
     /**
      * Cruiser constructor
@@ -22,7 +23,7 @@ public class Cruiser extends Ship{
      * @param spot spot where the ship is
      */
     public Cruiser(boolean computer, Spot spot) {
-        super(computer, Cruiser.maxHealth, Cruiser.damage, canAttack, canRepair, Cruiser.movementRange, Cruiser.weaponsRange, getTexture(computer), spot);
+        super(computer, Cruiser.maxHealth, Cruiser.damage, canAttack, canRepair, Cruiser.movementRange, Cruiser.weaponsRange, getTexture(computer), spot, value);
         
     }
     

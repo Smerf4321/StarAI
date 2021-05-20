@@ -58,6 +58,18 @@ public class Game {
      * and gives the turn to the other player
      */
     public void endTurn(){
+        switch (evaluateGameState()){
+            case HUMAN_WIN:
+                System.exit(0);
+                break;
+            case COMPUTER_WIN:
+                System.exit(0);
+                break;
+            case ACTIVE:
+                break;
+                
+        }
+        
         if (currentTurn == 1){
             currentTurn = 2;
         }
@@ -81,23 +93,17 @@ public class Game {
      */
     private GameState evaluateGameState(){
         List<Ship> ships = board.getShipList();
-        for (Ship ship : ships){
-            //checks if either of the carriers are destroyed and changes gamestate accrdingly
-            if ((ship instanceof Carrier) && ship.isKilled()){
-                if (ship.isComputer()){
+        for (Ship s : ships){
+            //checks if either of the carriers are destroyed and changes gamestate accordingly
+            if ((s instanceof Carrier) && s.isKilled()){
+                if (s.isComputer()){
+                    System.out.println("HUMAN WIN");
                     return GameState.HUMAN_WIN;
                 }
                 else {
+                    System.out.println("COMPUTER WIN");
                     return GameState.COMPUTER_WIN;
                 }
-            }
-            
-            //checks if all ships, other than Carriers have been killed and returns a Draw
-            if (!ship.isKilled() && !(ship instanceof Carrier)){
-                return GameState.ACTIVE;
-            }
-            else {
-                return GameState.DRAW;
             }
         }
         return GameState.ACTIVE;

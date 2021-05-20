@@ -13,6 +13,7 @@ public class Move {
     public Spot start;
     public Spot end;
     public Ship ship;
+    public Ship target;
     public MoveType type;
     
     /**
@@ -21,11 +22,12 @@ public class Move {
      * @param start Spot at which the action starts 
      * @param end Spot at which the action ends
      */
-    public Move(Player player, Spot start, Spot end, Ship ship, MoveType type){
+    public Move(Player player, Spot start, Spot end, Ship ship, Ship target, MoveType type){
         this.player = player; 
         this.start = start; 
         this.end = end; 
         this.ship = ship;
+        this.target = target;
         this.type = type;
     }
     

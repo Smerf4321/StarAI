@@ -58,7 +58,7 @@ public class HumanPlayer extends Player{
                 Ship clickedShip = board.getShipAt(x, y);
 
                 //Checks if the selected spot is in movement range
-                if (clickedShip == null){
+                if ((clickedShip == null || clickedShip.isKilled())){
                     if (isInRange
                         (Math.round(targetSpot.getX()/128), 
                         Math.round(targetSpot.getY()/128), 
@@ -66,8 +66,7 @@ public class HumanPlayer extends Player{
                         Math.round(currentShip.spot.getY()/128),  
                         currentShip.getMovementRange())){
 
-                        Move move = new Move(this, currentShip.spot, targetSpot, currentShip, MoveType.MOVE);
-                        System.out.println(move.toString());
+                        Move move = new Move(this, currentShip.spot, targetSpot, currentShip, null, MoveType.MOVE);
                         
                         currentShip.spot = targetSpot;
                         
@@ -78,6 +77,7 @@ public class HumanPlayer extends Player{
                 //Checks if the ship in the targeted spot is controlled by enemy and is in range of weapons
                 //and if the currently selected ship can attack
                 else if (clickedShip.isComputer() 
+                        && !clickedShip.isKilled()
                         && currentShip.getCanAttack()
                         && isInRange
                         (Math.round(targetSpot.getX()/128), 
@@ -86,14 +86,10 @@ public class HumanPlayer extends Player{
                         Math.round(currentShip.spot.getY()/128),  
                         currentShip.getWeaponsRange())){
 
-                    Move move = new Move(this, currentShip.spot, targetSpot, currentShip, MoveType.ATTACK);
-                    System.out.println(move.toString());
+                    Move move = new Move(this, currentShip.spot, targetSpot, currentShip, clickedShip, MoveType.ATTACK);
                     
                     //Damages the enemy ship and checks if that ship is killed then removes it
                     clickedShip.damage(currentShip.getWeaponsDamage());
-                    if (clickedShip.isKilled()){
-                        board.removeShip(clickedShip);
-                    }
                     
                     endTurn();
                 }
@@ -101,6 +97,7 @@ public class HumanPlayer extends Player{
                 //Checks if the ship in the selected spot is controlled by friendly and is in range of repair
                 //and if the currently selected ship can repair
                 else if (!clickedShip.isComputer() 
+                        && !clickedShip.isKilled()
                         && currentShip.getCanRepair()
                         && isInRange
                         (Math.round(targetSpot.getX()/128), 
@@ -109,8 +106,7 @@ public class HumanPlayer extends Player{
                         Math.round(currentShip.spot.getY()/128),  
                         currentShip.getWeaponsRange())){
 
-                    Move move = new Move(this, currentShip.spot, targetSpot, currentShip, MoveType.REPAIR);
-                    System.out.println(move.toString());
+                    Move move = new Move(this, currentShip.spot, targetSpot, currentShip, clickedShip, MoveType.REPAIR);
                     
                     //Repairs the targeted ship
                     clickedShip.repair(currentShip.getWeaponsDamage());
