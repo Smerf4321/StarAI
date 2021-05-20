@@ -110,6 +110,10 @@ public final class Board implements Drawable{
         return ship;
     }
     
+    public void removeShip(Ship s){
+        ships.remove(s);
+    }
+    
     public void setShip(Ship ship){
         ships.add(ship);
     }

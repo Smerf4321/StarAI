@@ -114,8 +114,13 @@ public class ComputerPlayer extends Player{
         return highestMove;
     }
     
-    private int evaluateBoardState(){
+    private int evaluateBoardState(ArrayList<Move> moves){
         int totalValue = 0;
+        Move highestMove = null;
+        
+        for (Move m : moves){
+            
+        }
         
         for (Ship s : board.getShipList()){
             if (s.isComputer()){

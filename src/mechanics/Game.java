@@ -2,6 +2,8 @@ package mechanics;
 
 import GUI.BoardGUI;
 import board.Board;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import player.ComputerPlayer;
 import player.HumanPlayer;
@@ -66,8 +68,19 @@ public class Game {
                 System.exit(0);
                 break;
             case ACTIVE:
-                break;
-                
+                break;   
+        }
+        
+        ArrayList<Ship> l = new ArrayList();
+        
+        for (Ship s : board.getShipList()){
+            if (s.isKilled()){
+                l.add(s);
+            }
+        }
+        
+        for (Ship s : l){
+            board.removeShip(s);
         }
         
         if (currentTurn == 1){
