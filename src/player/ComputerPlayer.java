@@ -51,7 +51,7 @@ public class ComputerPlayer extends Player{
         ArrayList<Move> allMoves = new ArrayList<>();
         
         for (Ship ship: board.getShipList()){
-            if (ship.isComputer()){
+            if (ship.isComputer() && !ship.isKilled()){
                 for (int x = 0; x < board.getWidth(); x++){
                     for (int y = 0; y < board.getHeight(); y++){
                         Ship targetShip = board.getShipAt(x, y);
@@ -112,6 +112,21 @@ public class ComputerPlayer extends Player{
         }
         System.out.println(highestMove.toString());
         return highestMove;
+    }
+    
+    private int evaluateBoardState(){
+        int totalValue = 0;
+        
+        for (Ship s : board.getShipList()){
+            if (s.isComputer()){
+                totalValue += s.value;
+            }
+            else {
+                totalValue -= s.value;
+            }
+        }
+        
+        return totalValue;
     }
     
     @Override
