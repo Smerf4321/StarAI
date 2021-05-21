@@ -25,6 +25,11 @@ public class Fighter extends Ship{
         super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, Fighter.movementRange, Fighter.weaponsRange, getTexture(computer), spot, value);
     }
     
+    /**
+     * Returns the texture based on the player controlling the ship
+     * @param computer whether the ship belongs to the computer
+     * @return texture name as string
+     */
     private static String getTexture(boolean computer){
         if (computer){
             return "EFighters128";

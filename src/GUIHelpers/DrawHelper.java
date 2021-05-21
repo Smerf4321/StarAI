@@ -14,11 +14,16 @@ import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 /**
- *
+ * Defines all the static functions to do with drawing objects on the graphical interface
  * @author Patryk
  */
 public class DrawHelper {
     
+    /**
+     * Creates the initial window/display
+     * @param width of the display
+     * @param height of the display
+     */
     public static void BeginSession(int width, int height){
         
         width = 128*width;
@@ -41,15 +46,30 @@ public class DrawHelper {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
     
-    public static void DrawQuad(float startX, float startY, float width, float length){
+    /**
+     * Draws a quad, structure with 4 coordinates
+     * @param startX top left x-coord
+     * @param startY top left y-coord
+     * @param width of the quad
+     * @param height of the quad
+     */
+    public static void DrawQuad(float startX, float startY, float width, float height){
         glBegin(GL_QUADS);
         glVertex2f(startX, startY); //Top left
         glVertex2f(startX + width, startY); //Top right
-        glVertex2f(startX + width, startY + length); //Bottom Right
-        glVertex2f(startX, startY + length); //Bottom Left
+        glVertex2f(startX + width, startY + height); //Bottom Right
+        glVertex2f(startX, startY + height); //Bottom Left
         glEnd();
     }
     
+    /**
+     * Draws a quad with a texture binded
+     * @param texture of the graphical object
+     * @param startX top left x-coord
+     * @param startY top left y-coord
+     * @param width of the quad
+     * @param height of the quad
+     */
     public static void DrawQuadTexture(Texture texture, float startX, float startY, float width, float height){
         texture.bind();
         glTranslatef(startX, startY, 0);
@@ -71,6 +91,12 @@ public class DrawHelper {
         glLoadIdentity();
     }
     
+    /**
+     * Loads a texture into the memory
+     * @param path to the texture image
+     * @param filetype of the texture image
+     * @return reference to the loaded texture
+     */
     public static Texture LoadTexture(String path, String filetype){
         Texture texture = null;
         InputStream in = ResourceLoader.getResourceAsStream(path);
@@ -82,6 +108,11 @@ public class DrawHelper {
         return texture;
     }
     
+    /**
+     * Wrapper method for loading textures with name only 
+     * @param name of the texture
+     * @return reference to the loaded texture 
+     */
     public static Texture QuickTextureLoad(String name){
         Texture texture;
         texture = LoadTexture("resources/" + name + ".png", "PNG");

@@ -125,6 +125,10 @@ public class HumanPlayer extends Player{
         game.endTurn();
     }
     
+    /**
+     * Returns the player as a string description
+     * @return name of player
+     */
     @Override
     public String toString(){
         return "HumanPlayer";

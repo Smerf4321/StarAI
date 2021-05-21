@@ -38,6 +38,10 @@ public class Move {
         this.type = type;
     }
     
+    /**
+     * Returns the move as a string description
+     * @return move as a string
+     */
     @Override
     public String toString(){
         String s = player.toString() + ", " + start.toString() + ", " + end.toString() + ", " + ship.toString() + ", " + type.name();

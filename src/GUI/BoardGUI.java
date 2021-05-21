@@ -8,7 +8,7 @@ import player.Player;
 
 
 /**
- *
+ * Draws and updates the board 
  * @author Patryk
  */
 public class BoardGUI {
@@ -16,8 +16,10 @@ public class BoardGUI {
         
         BeginSession(width, height);
         
+        //Loads all the textures
         board.loadTexture();
         
+        //Loop that constantly updates the graphical interface
         while(!Display.isCloseRequested()){
             Clock.update();
             board.Draw();

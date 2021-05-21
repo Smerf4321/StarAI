@@ -3,7 +3,7 @@ package GUIHelpers;
 import org.lwjgl.Sys;
 
 /**
- *
+ * Defines a clock for the game used for animations
  * @author Patryk
  */
 public class Clock {

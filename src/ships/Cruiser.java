@@ -27,6 +27,11 @@ public class Cruiser extends Ship{
         
     }
     
+    /**
+     * Returns the texture based on the player controlling the ship
+     * @param computer whether the ship belongs to the computer
+     * @return texture name as string
+     */
     private static String getTexture(boolean computer){
         if (computer){
             return "ECruiser128";

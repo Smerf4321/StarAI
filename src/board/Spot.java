@@ -24,6 +24,9 @@ public class Spot implements Drawable{
         this.y = y;
     }
     
+    /**
+     * Loads the texture of the spot
+     */
     public void loadTexture(){
         this.spotTexture = QuickTextureLoad("emptySpot128");
     }
@@ -52,6 +55,10 @@ public class Spot implements Drawable{
         return y;
     }
     
+    /**
+     * Returns the spot as a string description
+     * @return spot coordinates
+     */
     @Override
     public String toString(){
         String s = "x:" + x/128 + ", y:" + y/128;

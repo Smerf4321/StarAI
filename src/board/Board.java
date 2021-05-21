@@ -7,7 +7,7 @@ import java.util.List;
 import ships.*;
 
 /**
- *
+ * Defines the mechanical elements of the board
  * @author Patryk
  */
 public final class Board implements Drawable{
@@ -17,6 +17,11 @@ public final class Board implements Drawable{
     private ArrayList<Ship> ships;
     private Background background;
     
+    /**
+     * Initialises the board
+     * @param width of the board
+     * @param height of the board
+     */
     public Board(int width, int height){
         this.height = height;
         this.width = width;
@@ -52,6 +57,9 @@ public final class Board implements Drawable{
         setShip(new Fighter(true, map[8][4]));
     }
     
+    /**
+     * Loades all of the textures used for this board
+     */
     public void loadTexture(){
         background.loadTexture();
         for (int x = 0; x < width; x++){
@@ -65,6 +73,9 @@ public final class Board implements Drawable{
         });
     }
     
+    /**
+     * Draws the board using quads
+     */
     @Override
     public void Draw(){
         background.Draw();
