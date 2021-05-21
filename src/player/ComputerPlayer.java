@@ -8,6 +8,7 @@ import mechanics.Move;
 import mechanics.MoveType;
 import ships.Ship;
 import java.util.Random;
+import ships.Carrier;
 
 /**
  * This is a concrete implementation of a computer controller player
@@ -26,32 +27,47 @@ public class ComputerPlayer extends Player{
     @Override
     public void Update() {
         if (game.isTurnMine(2)){
-            ArrayList<Move> moves = getAllMoves();
-            Move move = bestMoveChooser(moves);
-            
-            Ship target;
-            switch(move.type){
-                case MOVE:
-                    move.ship.spot = move.end;
-                    break;
-                case ATTACK:
-                    target = board.getShipAt((int)move.end.getX()/128, (int)move.end.getY()/128);
-                    target.damage(move.ship.getWeaponsDamage());
-                    break;
-                case REPAIR:
-                    target = board.getShipAt((int)move.end.getX()/128, (int)move.end.getY()/128);
-                    target.repair(target.getWeaponsDamage());
-            }
+            ArrayList<Move> moves = getMoves(true);
+            Move move = findBestMinimax(moves);
+
+            applyMove(move);
             
             game.endTurn();
         }
     }
     
-    public ArrayList getAllMoves (){
+    private void applyMove(Move move){
+        switch(move.type){
+                case MOVE:
+                    move.ship.spot = move.end;
+                    break;
+                case ATTACK:
+                    move.target.damage(move.ship.getWeaponsDamage());
+                    break;
+                case REPAIR:
+                    move.target.repair(move.ship.getWeaponsDamage());
+            }
+    }
+    
+    private void reverseMove(Move move){
+        switch(move.type){
+                case MOVE:
+                    move.ship.spot = move.start;
+                    break;
+                case ATTACK:
+                    move.target.killed = false;
+                    move.target.repair(move.ship.getWeaponsDamage());
+                    break;
+                case REPAIR:
+                    move.target.damage(move.ship.getWeaponsDamage());
+            }
+    }
+    
+    public ArrayList<Move> getMoves(boolean isComputer){
         ArrayList<Move> allMoves = new ArrayList<>();
         
         for (Ship ship: board.getShipList()){
-            if (ship.isComputer() && !ship.isKilled()){
+            if ((ship.isComputer() == isComputer) && !ship.isKilled()){
                 for (int x = 0; x < board.getWidth(); x++){
                     for (int y = 0; y < board.getHeight(); y++){
                         Ship targetShip = board.getShipAt(x, y);
@@ -61,12 +77,14 @@ public class ComputerPlayer extends Player{
                             allMoves.add(new Move(this, ship.spot, targetSpot, ship, targetShip, MoveType.MOVE));
                         }
 
-                        if (targetShip != null && !targetShip.isKilled() && isInRange(x, y, Math.round(ship.spot.getX()/128), Math.round(ship.spot.getY()/128), ship.getWeaponsRange())){
+                        if (targetShip != null 
+                                && !targetShip.isKilled() 
+                                && isInRange(x, y, Math.round(ship.spot.getX()/128), Math.round(ship.spot.getY()/128), ship.getWeaponsRange())){
                             MoveType type = null;
-                            if (ship.getCanRepair() && targetShip.isComputer()){
+                            if (ship.getCanRepair() && targetShip.isComputer() && targetShip.getHealth() < targetShip.getMaxHealth()){
                                 type = MoveType.REPAIR;
                             }
-                            if (ship.getCanAttack() && !targetShip.isComputer()){
+                            else if (ship.getCanAttack() && !targetShip.isComputer()){
                                 type = MoveType.ATTACK;
                             }
                             else {
@@ -114,13 +132,8 @@ public class ComputerPlayer extends Player{
         return highestMove;
     }
     
-    private int evaluateBoardState(ArrayList<Move> moves){
+    private int evaluateBoardState(){
         int totalValue = 0;
-        Move highestMove = null;
-        
-        for (Move m : moves){
-            
-        }
         
         for (Ship s : board.getShipList()){
             if (s.isComputer()){
@@ -130,8 +143,66 @@ public class ComputerPlayer extends Player{
                 totalValue -= s.value;
             }
         }
-        
+
         return totalValue;
+    }
+    
+    private int minimax(int targetDepth, int depth, boolean isComputer){
+        int value = evaluateBoardState();
+        
+        switch (game.evaluateGameState()){
+            case HUMAN_WIN:
+                return value;
+            case COMPUTER_WIN:
+                return value;
+            case ACTIVE:
+                break;   
+        }
+        
+        if (depth >= targetDepth){
+            return value;
+        }
+        
+        if (isComputer){
+            int best = -9999;
+            
+            for (Move m : getMoves(isComputer)){
+                applyMove(m);
+                best = Math.max(best, minimax(targetDepth, depth+1, !isComputer));
+                reverseMove(m);
+            }
+            
+            return best;
+        }
+        else {
+            int best = 9999;
+            
+            for (Move m : getMoves(!isComputer)){
+                applyMove(m);
+                best = Math.min(best, minimax(targetDepth, depth+1, !isComputer));
+                reverseMove(m);
+            }
+            
+            return best;
+        }
+    }
+    
+    private Move findBestMinimax(ArrayList<Move> moves){
+        int highestValue = -9999;
+        Move highestMove = new Move();
+        
+        for (Move m : moves){
+            applyMove(m);
+            int moveValue = minimax(2, 0, true);
+            reverseMove(m);
+            
+            if (moveValue > highestValue){
+                highestValue = moveValue;
+                highestMove = m;
+            }
+        }
+        
+        return highestMove;
     }
     
     @Override

@@ -104,7 +104,7 @@ public class Game {
      * this function evaluates the state of the game, e.g. checks win conditions
      * @return the current state of the game
      */
-    private GameState evaluateGameState(){
+    public GameState evaluateGameState(){
         List<Ship> ships = board.getShipList();
         for (Ship s : ships){
             //checks if either of the carriers are destroyed and changes gamestate accordingly

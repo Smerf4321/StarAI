@@ -17,6 +17,13 @@ public class Move {
     public MoveType type;
     
     /**
+     * Dummy object, should never be initialised
+     */
+    public Move(){
+        
+    }
+    
+    /**
      * Constructor for an Action
      * @param player Player taking an action
      * @param start Spot at which the action starts 
