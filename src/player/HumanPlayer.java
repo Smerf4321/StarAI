@@ -101,6 +101,7 @@ public class HumanPlayer extends Player{
                         && !clickedShip.isKilled()
                         && currentShip.getCanRepair()
                         && !(clickedShip instanceof Carrier)
+                        && clickedShip.getHealth() < clickedShip.getMaxHealth()
                         && isInRange
                         (Math.round(targetSpot.getX()/128), 
                         Math.round(targetSpot.getY()/128), 
