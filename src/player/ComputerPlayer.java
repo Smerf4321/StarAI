@@ -8,6 +8,7 @@ import mechanics.Move;
 import mechanics.MoveType;
 import ships.Ship;
 import java.util.Random;
+import ships.Carrier;
 
 /**
  * This is a concrete implementation of a computer controller player
@@ -80,7 +81,7 @@ public class ComputerPlayer extends Player{
                                 && !targetShip.isKilled() 
                                 && isInRange(x, y, Math.round(ship.spot.getX()/128), Math.round(ship.spot.getY()/128), ship.getWeaponsRange())){
                             MoveType type = null;
-                            if (ship.getCanRepair() && targetShip.isComputer() && targetShip.getHealth() < targetShip.getMaxHealth()){
+                            if (ship.getCanRepair() && targetShip.isComputer() && !(targetShip instanceof Carrier) && targetShip.getHealth() < targetShip.getMaxHealth()){
                                 type = MoveType.REPAIR;
                             }
                             else if (ship.getCanAttack() && !targetShip.isComputer()){
@@ -204,7 +205,7 @@ public class ComputerPlayer extends Player{
         
         for (Move m : moves){
             applyMove(m);
-            int moveValue = minimax(2, 0, true, -9999, 9999);
+            int moveValue = minimax(4, 0, true, -9999, 9999);
             reverseMove(m);
             
             if (moveValue > highestValue){

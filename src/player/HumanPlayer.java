@@ -7,6 +7,7 @@ import mechanics.Game;
 import mechanics.MoveType;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import ships.Carrier;
 import ships.Ship;
 
 /**
@@ -99,6 +100,7 @@ public class HumanPlayer extends Player{
                 else if (!clickedShip.isComputer() 
                         && !clickedShip.isKilled()
                         && currentShip.getCanRepair()
+                        && !(clickedShip instanceof Carrier)
                         && isInRange
                         (Math.round(targetSpot.getX()/128), 
                         Math.round(targetSpot.getY()/128), 
