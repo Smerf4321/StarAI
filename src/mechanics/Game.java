@@ -3,7 +3,6 @@ package mechanics;
 import GUI.BoardGUI;
 import board.Board;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import player.ComputerPlayer;
 import player.HumanPlayer;

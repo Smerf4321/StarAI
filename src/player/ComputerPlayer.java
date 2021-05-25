@@ -138,7 +138,7 @@ public class ComputerPlayer extends Player{
         for (Ship s : board.getShipList()){
             if (!s.isKilled()){
                 if (s.isComputer()){
-                    totalValue += s.value * ((float)s.getHealth()/(float)s.getMaxHealth());
+                    totalValue += s.value * ((float)s.getHealth()/(float)s.getMaxHealth())-1;
                 }
                 else {
                     totalValue -= s.value * ((float)s.getHealth()/(float)s.getMaxHealth());
@@ -151,9 +151,9 @@ public class ComputerPlayer extends Player{
     private int minimax(int targetDepth, int depth, boolean isComputer, int alpha, int beta){
         switch (game.evaluateGameState()){
             case COMPUTER_WIN:
-                return 999;
+                return 100;
             case HUMAN_WIN:
-                return -999;
+                return -100;
         }
         
         if (depth >= targetDepth){
@@ -161,14 +161,14 @@ public class ComputerPlayer extends Player{
         }
         
         if (isComputer){
-            int best = -9999;
+            int best = Integer.MIN_VALUE;
             ArrayList<Move> moves = getMoves(isComputer);
             for (Move m : moves){
                 
                 applyMove(m);
                 int current = minimax(targetDepth, depth+1, !isComputer, alpha, beta);
-                System.out.println(m.toString() + Integer.toString(current));
-                best = Math.max(best, current);
+                //System.out.println(m.toString() + Integer.toString(current));
+                best = Math.max(best, current)-depth;
                 alpha = Math.max(alpha, best);
                 reverseMove(m);
                 
@@ -180,14 +180,14 @@ public class ComputerPlayer extends Player{
             return best;
         }
         else {
-            int best = 9999;
+            int best = Integer.MAX_VALUE;
             ArrayList<Move> moves = getMoves(!isComputer);
             for (Move m : moves){
                 
                 applyMove(m);
                 int current = minimax(targetDepth, depth+1, !isComputer, alpha, beta);
-                System.out.println(m.toString() + Integer.toString(current));
-                best = Math.min(best, current);
+                //System.out.println(m.toString() + Integer.toString(current));
+                best = Math.min(best, current)+depth;
                 beta = Math.min(beta, best);
                 reverseMove(m);
                 
@@ -206,10 +206,8 @@ public class ComputerPlayer extends Player{
         
         for (Move m : moves){
             applyMove(m);
-            int moveValue = minimax(1, 0, false, -9999, 9999);
+            int moveValue = minimax(3, 0, false, -9999, 9999);
             reverseMove(m);
-            
-            //System.out.println(Integer.toString(moveValue));
             
             if (moveValue > highestValue){
                 highestValue = moveValue;

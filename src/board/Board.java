@@ -49,19 +49,19 @@ public final class Board implements Drawable{
         
         ships = new ArrayList<>();
         
-        //setShip(new Cruiser(false, map[0][2]));
+        setShip(new Cruiser(false, map[0][2]));
         setShip(new Carrier(false, map[0][3]));
-        //setShip(new Cruiser(false, map[0][4]));
-        //setShip(new Fighter(false, map[1][2]));
+        setShip(new Cruiser(false, map[0][4]));
+        setShip(new Fighter(false, map[1][2]));
         setShip(new Fighter(false, map[1][3]));
-        //setShip(new Fighter(false, map[1][4]));
+        setShip(new Fighter(false, map[1][4]));
 
-       //setShip(new Cruiser(true, map[7][2]));
+        setShip(new Cruiser(true, map[6][2]));
         setShip(new Carrier(true, map[6][3]));
-        //setShip(new Cruiser(true, map[7][4]));
-        //setShip(new Fighter(true, map[6][2]));
+        setShip(new Cruiser(true, map[6][4]));
+        setShip(new Fighter(true, map[5][2]));
         setShip(new Fighter(true, map[5][3]));
-        //setShip(new Fighter(true, map[6][4]));
+        setShip(new Fighter(true, map[5][4]));
     }
     
     /**
