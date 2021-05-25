@@ -145,7 +145,6 @@ public class ComputerPlayer extends Player{
                 }
             }
         }
-
         return totalValue;
     }
     
@@ -158,8 +157,8 @@ public class ComputerPlayer extends Player{
         
         if (isComputer){
             int best = -9999;
-            
-            for (Move m : getMoves(isComputer)){
+            ArrayList<Move> moves = getMoves(isComputer);
+            for (Move m : moves){
                 applyMove(m);
                 int current = minimax(targetDepth, depth+1, !isComputer, alpha, beta);
                 best = Math.max(best, current);
@@ -175,8 +174,8 @@ public class ComputerPlayer extends Player{
         }
         else {
             int best = 9999;
-            
-            for (Move m : getMoves(!isComputer)){
+            ArrayList<Move> moves = getMoves(!isComputer);
+            for (Move m : moves){
                 //move to next node
                 applyMove(m);
                 //get the value of that node
@@ -202,7 +201,7 @@ public class ComputerPlayer extends Player{
         
         for (Move m : moves){
             applyMove(m);
-            int moveValue = minimax(4, 0, false, -9999, 9999);
+            int moveValue = minimax(6, 0, false, -9999, 9999);
             reverseMove(m);
             
             if (moveValue > highestValue){
@@ -211,6 +210,7 @@ public class ComputerPlayer extends Player{
             }
         }
         
+        System.out.println(Integer.toString(highestValue));
         return highestMove;
     }
     

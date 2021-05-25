@@ -29,6 +29,13 @@ public final class Board implements Drawable{
         setMap();
     }
     
+    public Board (Board b){
+        this.height = b.height;
+        this.width = b.width;
+        this.ships = b.ships;
+        this.map = b.map;
+    }
+    
     /**
      * Resets the map to its starting state
      */
@@ -42,19 +49,19 @@ public final class Board implements Drawable{
         
         ships = new ArrayList<>();
         
-        setShip(new Cruiser(false, map[0][2]));
+        //setShip(new Cruiser(false, map[0][2]));
         setShip(new Carrier(false, map[0][3]));
-        setShip(new Cruiser(false, map[0][4]));
-        setShip(new Fighter(false, map[1][2]));
+        //setShip(new Cruiser(false, map[0][4]));
+        //setShip(new Fighter(false, map[1][2]));
         setShip(new Fighter(false, map[1][3]));
-        setShip(new Fighter(false, map[1][4]));
+        //setShip(new Fighter(false, map[1][4]));
 
-        setShip(new Cruiser(true, map[9][2]));
-        setShip(new Carrier(true, map[9][3]));
-        setShip(new Cruiser(true, map[9][4]));
-        setShip(new Fighter(true, map[8][2]));
-        setShip(new Fighter(true, map[8][3]));
-        setShip(new Fighter(true, map[8][4]));
+       //setShip(new Cruiser(true, map[7][2]));
+        setShip(new Carrier(true, map[7][3]));
+        //setShip(new Cruiser(true, map[7][4]));
+        //setShip(new Fighter(true, map[6][2]));
+        setShip(new Fighter(true, map[6][3]));
+        //setShip(new Fighter(true, map[6][4]));
     }
     
     /**
