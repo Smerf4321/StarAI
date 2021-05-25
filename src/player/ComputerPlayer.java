@@ -138,10 +138,10 @@ public class ComputerPlayer extends Player{
         for (Ship s : board.getShipList()){
             if (!s.isKilled()){
                 if (s.isComputer()){
-                    totalValue += s.value * (s.getHealth()/s.getMaxHealth());
+                    totalValue += s.value * ((float)s.getHealth()/(float)s.getMaxHealth());
                 }
                 else {
-                    totalValue -= s.value * (s.getHealth()/s.getMaxHealth());
+                    totalValue -= s.value * ((float)s.getHealth()/(float)s.getMaxHealth());
                 }
             }
         }
@@ -172,9 +172,9 @@ public class ComputerPlayer extends Player{
                 alpha = Math.max(alpha, best);
                 reverseMove(m);
                 
-//                if (beta <= alpha){
-//                    break;
-//                }
+                if (beta <= alpha){
+                    break;
+                }
             }
             
             return best;
@@ -191,9 +191,9 @@ public class ComputerPlayer extends Player{
                 beta = Math.min(beta, best);
                 reverseMove(m);
                 
-//                if (beta <= alpha){
-//                    break;
-//                }
+                if (beta <= alpha){
+                    break;
+                }
             }
             
             return best;
