@@ -43,7 +43,7 @@ public final class Board implements Drawable{
         map = new Spot[width][height];
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
-                map[x][y] = new Spot(x*128, y*128);
+                map[x][y] = new Spot(x, y);
             }
         }
         

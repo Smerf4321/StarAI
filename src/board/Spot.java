@@ -10,8 +10,8 @@ import org.newdawn.slick.opengl.Texture;
  * @author Patryk
  */
 public class Spot implements Drawable{
-    private final float x;
-    private final float y;
+    private final int x;
+    private final int y;
     private  Texture spotTexture;
     
     /**
@@ -19,7 +19,7 @@ public class Spot implements Drawable{
      * @param x how far is the spot along the x-axis
      * @param y how far is the spot along y-axis
      */
-    public Spot (float x, float y){
+    public Spot (int x, int y){
         this.x = x;
         this.y = y;
     }
@@ -36,14 +36,14 @@ public class Spot implements Drawable{
      */
     @Override
     public void Draw(){
-        DrawQuadTexture(spotTexture, x, y, 128, 128);
+        DrawQuadTexture(spotTexture, 128*x, 128*y, 128, 128);
     }
     
     /**
      * Returns where the Spot is on the x-axis
      * @return float
      */
-    public float getX(){
+    public int getX(){
         return x;
     }
     
@@ -51,7 +51,7 @@ public class Spot implements Drawable{
      * Return where the Spot is on the y-axis
      * @return float
      */
-    public float getY(){
+    public int getY(){
         return y;
     }
     
@@ -61,7 +61,7 @@ public class Spot implements Drawable{
      */
     @Override
     public String toString(){
-        String s = "x:" + x/128 + ", y:" + y/128;
+        String s = "x:" + x + ", y:" + y;
         return s;
     }
 }

@@ -22,11 +22,17 @@ public class BoardGUI {
         //Loop that constantly updates the graphical interface
         while(!Display.isCloseRequested()){
             Clock.update();
-            board.Draw();
+            
             human.Update();
+            
+            board.Draw();
+            Display.update();
+            
             computer.Update();
             
+            board.Draw();
             Display.update();
+            
             Display.sync(60);
         }
         

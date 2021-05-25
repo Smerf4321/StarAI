@@ -144,7 +144,7 @@ public abstract class Ship implements Drawable{
      * Draws the ship at the coordinates of it's spot
      */
     public void Draw(){
-        DrawQuadTexture(shipTexture, spot.getX(), spot.getY(), 128, 128);
+        DrawQuadTexture(shipTexture, spot.getX()*128, spot.getY()*128, 128, 128);
     }
     
     /**

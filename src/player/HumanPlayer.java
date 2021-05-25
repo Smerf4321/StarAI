@@ -61,10 +61,10 @@ public class HumanPlayer extends Player{
                 //Checks if the selected spot is in movement range
                 if ((clickedShip == null || clickedShip.isKilled())){
                     if (isInRange
-                        (Math.round(targetSpot.getX()/128), 
-                        Math.round(targetSpot.getY()/128), 
-                        Math.round(currentShip.spot.getX()/128), 
-                        Math.round(currentShip.spot.getY()/128),  
+                        (targetSpot.getX(), 
+                        targetSpot.getY(), 
+                        currentShip.spot.getX(), 
+                        currentShip.spot.getY(),  
                         currentShip.getMovementRange())){
 
                         Move move = new Move(this, currentShip.spot, targetSpot, currentShip, null, MoveType.MOVE);
@@ -81,10 +81,10 @@ public class HumanPlayer extends Player{
                         && !clickedShip.isKilled()
                         && currentShip.getCanAttack()
                         && isInRange
-                        (Math.round(targetSpot.getX()/128), 
-                        Math.round(targetSpot.getY()/128), 
-                        Math.round(currentShip.spot.getX()/128), 
-                        Math.round(currentShip.spot.getY()/128),  
+                        (targetSpot.getX(), 
+                        targetSpot.getY(), 
+                        currentShip.spot.getX(), 
+                        currentShip.spot.getY(),  
                         currentShip.getWeaponsRange())){
 
                     Move move = new Move(this, currentShip.spot, targetSpot, currentShip, clickedShip, MoveType.ATTACK);
@@ -103,10 +103,10 @@ public class HumanPlayer extends Player{
                         && !(clickedShip instanceof Carrier)
                         && clickedShip.getHealth() < clickedShip.getMaxHealth()
                         && isInRange
-                        (Math.round(targetSpot.getX()/128), 
-                        Math.round(targetSpot.getY()/128), 
-                        Math.round(currentShip.spot.getX()/128), 
-                        Math.round(currentShip.spot.getY()/128),  
+                        (targetSpot.getX(), 
+                        targetSpot.getY(), 
+                        currentShip.spot.getX(), 
+                        currentShip.spot.getY(),  
                         currentShip.getWeaponsRange())){
 
                     Move move = new Move(this, currentShip.spot, targetSpot, currentShip, clickedShip, MoveType.REPAIR);
