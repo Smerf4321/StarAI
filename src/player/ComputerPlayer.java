@@ -68,18 +68,18 @@ public class ComputerPlayer extends Player{
         
         //for each ship in ship list
         for (Ship ship: board.getShipList()){
-            //for each ship that belongs to eithe rplayer or computer
+            //for each ship that belongs to either player or computer
             if ((ship.isComputer() == isComputer) 
                     && !ship.isKilled()){
                 
                 //for a range of x values centered on the ships spot and limited by it's range
                 for (int x = Math.max(ship.spot.getX()-ship.getMovementRange(), 0);
-                        x < Math.min(ship.spot.getX()+ship.getMovementRange(), board.getWidth());
+                        x <= Math.min(ship.spot.getX()+ship.getMovementRange(), board.getWidth()-1);
                         x++){
                     
                     //for a range of y values centered on the ships spot and limited by it's range
                     for (int y = Math.max(ship.spot.getY()-ship.getMovementRange(), 0);
-                            y < Math.min(ship.spot.getY()+ship.getMovementRange(), board.getHeight());
+                            y <= Math.min(ship.spot.getY()+ship.getMovementRange(), board.getHeight()-1);
                             y++){
                         
                         //get the ship and spot at the specified coordinates
@@ -91,7 +91,8 @@ public class ComputerPlayer extends Player{
                                 && isInRange(x, y, ship.spot.getX(), ship.spot.getY(), ship.getMovementRange())){
                             
                             //adds a move of type Move
-                            allMoves.add(new Move(this, ship.spot, targetSpot, ship, targetShip, MoveType.MOVE));
+                            Move m = new Move(isComputer, ship.spot, targetSpot, ship, targetShip, MoveType.MOVE);
+                            allMoves.add(m);
                         }
 
                         //if there is a ship and it's not killed and is in range of weapons
@@ -120,8 +121,8 @@ public class ComputerPlayer extends Player{
                                 continue;
                             }
                             
-                            Move m = new Move(this, ship.spot, targetSpot, ship, targetShip, type);
-                            System.out.println(m.toString());
+                            //generate a Move and add it to the list
+                            Move m = new Move(isComputer, ship.spot, targetSpot, ship, targetShip, type);
                             allMoves.add(m);
                         }
                     }
@@ -131,43 +132,6 @@ public class ComputerPlayer extends Player{
         
         return allMoves;
     }
-    
-//    public ArrayList<Move> getMoves(boolean isComputer){
-//        ArrayList<Move> allMoves = new ArrayList<>();
-//        
-//        for (Ship ship: board.getShipList()){
-//            if ((ship.isComputer() == isComputer) && !ship.isKilled()){
-//                for (int x = 0; x < board.getWidth(); x++){
-//                    for (int y = 0; y < board.getHeight(); y++){
-//                        Ship targetShip = board.getShipAt(x, y);
-//                        Spot targetSpot = board.getMap()[x][y];
-//
-//                        if ((targetShip == null || targetShip.isKilled()) && isInRange(x, y, Math.round(ship.spot.getX()/128), Math.round(ship.spot.getY()/128), ship.getMovementRange())){
-//                            allMoves.add(new Move(this, ship.spot, targetSpot, ship, targetShip, MoveType.MOVE));
-//                        }
-//
-//                        if (targetShip != null 
-//                                && !targetShip.isKilled() 
-//                                && isInRange(x, y, Math.round(ship.spot.getX()/128), Math.round(ship.spot.getY()/128), ship.getWeaponsRange())){
-//                            MoveType type = null;
-//                            if (ship.getCanRepair() && targetShip.isComputer() == isComputer && !(targetShip instanceof Carrier) && targetShip.getHealth() < targetShip.getMaxHealth()){
-//                                type = MoveType.REPAIR;
-//                            }
-//                            else if (ship.getCanAttack() && targetShip.isComputer() != isComputer){
-//                                type = MoveType.ATTACK;
-//                            }
-//                            else {
-//                                continue;
-//                            }
-//                            allMoves.add(new Move(this, ship.spot, targetSpot, ship, targetShip, type));
-//                        }
-//                    }
-//                }   
-//            }
-//        }
-//        
-//        return allMoves;
-//    }
     
     private Move bestMoveChooser(ArrayList<Move> moves){
         Move highestMove = null;
@@ -207,7 +171,7 @@ public class ComputerPlayer extends Player{
         for (Ship s : board.getShipList()){
             if (!s.isKilled()){
                 if (s.isComputer()){
-                    totalValue += s.value * ((float)s.getHealth()/(float)s.getMaxHealth())-1;
+                    totalValue += s.value * ((float)s.getHealth()/(float)s.getMaxHealth());
                 }
                 else {
                     totalValue -= s.value * ((float)s.getHealth()/(float)s.getMaxHealth());
@@ -235,34 +199,40 @@ public class ComputerPlayer extends Player{
             for (Move m : moves){
                 
                 applyMove(m);
+                
                 int current = minimax(targetDepth, depth+1, !isComputer, alpha, beta);
                 
-                best = Math.max(best, current)-depth;
+                //System.out.println(m.toString() + Integer.toString(current));
+                
+                best = Math.max(best, current);
                 alpha = Math.max(alpha, best);
                 reverseMove(m);
                 
-//                if (beta <= alpha){
-//                    break;
-//                }
+                if (beta <= alpha){
+                    break;
+                }
             }
             
             return best;
         }
         else {
             int best = Integer.MAX_VALUE;
-            ArrayList<Move> moves = getMoves(!isComputer);
+            ArrayList<Move> moves = getMoves(isComputer);
             for (Move m : moves){
                 
                 applyMove(m);
+                
                 int current = minimax(targetDepth, depth+1, !isComputer, alpha, beta);
                 
-                best = Math.min(best, current)-depth;
+                //System.out.println(m.toString() + Integer.toString(current));
+                
+                best = Math.min(best, current);
                 beta = Math.min(beta, best);
                 reverseMove(m);
                 
-//                if (beta <= alpha){
-//                    break;
-//                }
+                if (beta <= alpha){
+                    break;
+                }
             }
             
             return best;
@@ -275,7 +245,11 @@ public class ComputerPlayer extends Player{
         
         for (Move m : moves){
             applyMove(m);
-            int moveValue = minimax(2, 0, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            
+            int moveValue = minimax(4, 0, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            
+            //System.out.println(m.toString() + Integer.toString(moveValue));
+            
             reverseMove(m);
             
             if (moveValue > highestValue){
@@ -284,7 +258,7 @@ public class ComputerPlayer extends Player{
             }
         }
         
-        System.out.println("Highest:" + Integer.toString(highestValue));
+        //System.out.println("Highest:" + Integer.toString(highestValue));
         return highestMove;
     }
     

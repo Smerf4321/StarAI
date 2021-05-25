@@ -11,7 +11,7 @@ public class Cruiser extends Ship{
     static int maxHealth = 2;
     static int movementRange = 2;
     static int weaponsRange = 2;
-    static int damage = 1;
+    static int damage = 2;
     static boolean canAttack = true;
     static boolean canRepair = false;
     static String shipTexture;

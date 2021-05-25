@@ -66,8 +66,6 @@ public class HumanPlayer extends Player{
                         currentShip.spot.getX(), 
                         currentShip.spot.getY(),  
                         currentShip.getMovementRange())){
-
-                        Move move = new Move(this, currentShip.spot, targetSpot, currentShip, null, MoveType.MOVE);
                         
                         currentShip.spot = targetSpot;
                         
@@ -86,8 +84,6 @@ public class HumanPlayer extends Player{
                         currentShip.spot.getX(), 
                         currentShip.spot.getY(),  
                         currentShip.getWeaponsRange())){
-
-                    Move move = new Move(this, currentShip.spot, targetSpot, currentShip, clickedShip, MoveType.ATTACK);
                     
                     //Damages the enemy ship and checks if that ship is killed then removes it
                     clickedShip.damage(currentShip.getWeaponsDamage());
@@ -108,8 +104,6 @@ public class HumanPlayer extends Player{
                         currentShip.spot.getX(), 
                         currentShip.spot.getY(),  
                         currentShip.getWeaponsRange())){
-
-                    Move move = new Move(this, currentShip.spot, targetSpot, currentShip, clickedShip, MoveType.REPAIR);
                     
                     //Repairs the targeted ship
                     clickedShip.repair(currentShip.getWeaponsDamage());

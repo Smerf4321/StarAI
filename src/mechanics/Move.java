@@ -1,7 +1,6 @@
 package mechanics;
 
 import board.Spot;
-import player.Player;
 import ships.Ship;
 
 /**
@@ -9,7 +8,7 @@ import ships.Ship;
  * @author Patryk
  */
 public class Move {
-    private Player player;
+    private boolean isComputer;
     public Spot start;
     public Spot end;
     public Ship ship;
@@ -29,8 +28,8 @@ public class Move {
      * @param start Spot at which the action starts 
      * @param end Spot at which the action ends
      */
-    public Move(Player player, Spot start, Spot end, Ship ship, Ship target, MoveType type){
-        this.player = player; 
+    public Move(boolean isComputer, Spot start, Spot end, Ship ship, Ship target, MoveType type){
+        this.isComputer = isComputer; 
         this.start = start; 
         this.end = end; 
         this.ship = ship;
@@ -44,7 +43,7 @@ public class Move {
      */
     @Override
     public String toString(){
-        String s = player.toString() + ", " + start.toString() + ", " + end.toString() + ", " + ship.toString() + ", " + type.name();
+        String s = isComputer + ", " + start.toString() + ", " + end.toString() + ", " + ship.toString() + ", " + type.name();
         return s;
     }
 }
