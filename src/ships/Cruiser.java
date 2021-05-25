@@ -22,8 +22,8 @@ public class Cruiser extends Ship{
      * @param computer whether the ship is controlled by a computer
      * @param spot spot where the ship is
      */
-    public Cruiser(boolean computer, Spot spot) {
-        super(computer, Cruiser.maxHealth, Cruiser.damage, canAttack, canRepair, Cruiser.movementRange, Cruiser.weaponsRange, getTexture(computer), spot, value);
+    public Cruiser(boolean isPlayer2, Spot spot) {
+        super(isPlayer2, Cruiser.maxHealth, Cruiser.damage, canAttack, canRepair, Cruiser.movementRange, Cruiser.weaponsRange, getTexture(isPlayer2), spot, value);
         
     }
     
@@ -32,8 +32,8 @@ public class Cruiser extends Ship{
      * @param computer whether the ship belongs to the computer
      * @return texture name as string
      */
-    private static String getTexture(boolean computer){
-        if (computer){
+    private static String getTexture(boolean isPlayer2){
+        if (isPlayer2){
             return "ECruiser128";
         }
         else {

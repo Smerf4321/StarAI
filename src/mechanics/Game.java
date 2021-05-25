@@ -17,10 +17,10 @@ import ships.Ship;
 public class Game {
     private final Player[] players;
     private final Board board;
-    private int currentTurn;
+    private boolean isCurrentP2;
     private GameState state;
-    private int boardWidth = 8;
-    private int boardHeight = 7;
+    private int boardWidth = 7;
+    private int boardHeight = 5;
     private Player p1;
     private Player p2;
     
@@ -31,10 +31,10 @@ public class Game {
      */
     public Game (){
         board = new Board(boardWidth, boardHeight);
-        p1 = new HumanPlayer(board, this);
-        p2 = new ComputerPlayer(board, this);
+        p1 = new ComputerPlayer(false, board, this);
+        p2 = new ComputerPlayer(true, board, this);
         players = new Player[]{p1, p2};
-        currentTurn = 1;
+        isCurrentP2 = false;
         new BoardGUI(boardWidth, boardHeight, board, p1, p2);
     }
    
@@ -82,12 +82,7 @@ public class Game {
             board.removeShip(s);
         }
         
-        if (currentTurn == 1){
-            currentTurn = 2;
-        }
-        else {
-            currentTurn = 1;
-        }
+        isCurrentP2 = !isCurrentP2;
     }
     
     /**
@@ -95,8 +90,8 @@ public class Game {
      * @param p number of the player (1 - human, 2 - computer)
      * @return 
      */
-    public boolean isTurnMine(int p){
-        return currentTurn == p;
+    public boolean isTurnMine(boolean p){
+        return isCurrentP2 == p;
     }
     
     /**
@@ -108,12 +103,12 @@ public class Game {
         for (Ship s : ships){
             //checks if either of the carriers are destroyed and changes gamestate accordingly
             if ((s instanceof Carrier) && s.isKilled()){
-                if (s.isComputer()){
-                    System.out.println("HUMAN WIN");
+                if (s.isPlayer2()){
+                    //System.out.println("HUMAN WIN");
                     return GameState.HUMAN_WIN;
                 }
                 else {
-                    System.out.println("COMPUTER WIN");
+                    //System.out.println("COMPUTER WIN");
                     return GameState.COMPUTER_WIN;
                 }
             }

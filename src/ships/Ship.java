@@ -12,7 +12,7 @@ import org.newdawn.slick.opengl.Texture;
  */
 public abstract class Ship implements Drawable{
     public boolean killed = false;
-    private boolean computer = false;
+    private boolean isPlayer2 = false;
     public Spot spot;
     private final int maxHealth;
     private int currentHealth;
@@ -31,7 +31,7 @@ public abstract class Ship implements Drawable{
     
     /**
      * Abstract constructor for ship
-     * @param computer is ship controlled by computer
+     * @param computer is ship controlled by isPlayer2
      * @param maxHealth max health of the ship
      * @param weaponsDamage damage dealt by the ship
      * @param canAttack defines whether the ship can take attack action
@@ -42,7 +42,7 @@ public abstract class Ship implements Drawable{
      * @param spot spot where the ship is
      */
     public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair, int movementRange, int weaponsRange, String shipTextureName, Spot spot, int value){
-        this.computer = computer;
+        this.isPlayer2 = computer;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.movementRange = movementRange;
@@ -56,11 +56,11 @@ public abstract class Ship implements Drawable{
     }
     
     public void setComputer (boolean computer){
-        this.computer = computer;
+        this.isPlayer2 = computer;
     }
     
-    public boolean isComputer (){
-        return computer;
+    public boolean isPlayer2 (){
+        return isPlayer2;
     }
     
     public int getHealth(){

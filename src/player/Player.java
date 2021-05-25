@@ -7,11 +7,11 @@ import mechanics.Game;
  * @author Patryk
  */
 public abstract class Player {
-    protected boolean computer;
+    protected boolean isPlayer2;
     protected Game game;
     
     public boolean isComputer(){
-        return this.computer;
+        return this.isPlayer2;
     }
     
     /**

@@ -23,7 +23,7 @@ public class HumanPlayer extends Player{
     private boolean keyboardButtonPressed = false;
     
     public HumanPlayer(Board board, Game game){
-        this.computer = false;
+        this.isPlayer2 = false;
         this.board = board;
         this.game = game;
     }
@@ -39,13 +39,13 @@ public class HumanPlayer extends Player{
         }
         keyboardButtonPressed = Keyboard.isKeyDown(Keyboard.KEY_SPACE);
         
-        if (game.isTurnMine(1)){
+        if (game.isTurnMine(false)){
             //Left Mouse button
             //Checks if theere is a ship at the clicked coordinates and saves it
             if (Mouse.isButtonDown(0) && !mouseButton0Pressed){
                 Ship clickedShip = board.getShipAt((int) Math.floor(Mouse.getX() / 128), (int) Math.floor((board.getHeight()*128 - Mouse.getY() - 1) / 128));
 
-                if (clickedShip != null && !clickedShip.isComputer()){
+                if (clickedShip != null && !clickedShip.isPlayer2()){
                     currentShip = clickedShip;
                 }
             }
@@ -75,7 +75,7 @@ public class HumanPlayer extends Player{
 
                 //Checks if the ship in the targeted spot is controlled by enemy and is in range of weapons
                 //and if the currently selected ship can attack
-                else if (clickedShip.isComputer() 
+                else if (clickedShip.isPlayer2() 
                         && !clickedShip.isKilled()
                         && currentShip.getCanAttack()
                         && isInRange
@@ -93,7 +93,7 @@ public class HumanPlayer extends Player{
 
                 //Checks if the ship in the selected spot is controlled by friendly and is in range of repair
                 //and if the currently selected ship can repair
-                else if (!clickedShip.isComputer() 
+                else if (!clickedShip.isPlayer2() 
                         && !clickedShip.isKilled()
                         && currentShip.getCanRepair()
                         && !(clickedShip instanceof Carrier)

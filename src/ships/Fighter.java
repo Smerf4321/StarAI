@@ -21,8 +21,8 @@ public class Fighter extends Ship{
      * @param computer whether the ship is controlled by a computer
      * @param spot spot where the ship is
      */
-    public Fighter(boolean computer, Spot spot) {
-        super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, Fighter.movementRange, Fighter.weaponsRange, getTexture(computer), spot, value);
+    public Fighter(boolean isPlayer2, Spot spot) {
+        super(isPlayer2, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, Fighter.movementRange, Fighter.weaponsRange, getTexture(isPlayer2), spot, value);
     }
     
     /**
@@ -30,8 +30,8 @@ public class Fighter extends Ship{
      * @param computer whether the ship belongs to the computer
      * @return texture name as string
      */
-    private static String getTexture(boolean computer){
-        if (computer){
+    private static String getTexture(boolean isPlayer2){
+        if (isPlayer2){
             return "EFighters128";
         }
         else {

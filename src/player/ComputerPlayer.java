@@ -19,15 +19,21 @@ public class ComputerPlayer extends Player{
     private Board board;
     
     public ComputerPlayer(Board board, Game game){
-        this.computer = true;
+        this.isPlayer2 = true;
+        this.board = board;
+        this.game = game;
+    }
+    
+    public ComputerPlayer(boolean isPlayer2, Board board, Game game){
+        this.isPlayer2 = isPlayer2;
         this.board = board;
         this.game = game;
     }
 
     @Override
     public void Update() {
-        if (game.isTurnMine(2)){
-            ArrayList<Move> moves = getMoves(true);
+        if (game.isTurnMine(isPlayer2)){
+            ArrayList<Move> moves = getMoves(isPlayer2);
             Move move = findBestMinimax(moves);
 
             applyMove(move);
@@ -63,13 +69,13 @@ public class ComputerPlayer extends Player{
             }
     }
     
-    public ArrayList<Move> getMoves(boolean isComputer){
+    public ArrayList<Move> getMoves(boolean isMax){
         ArrayList<Move> allMoves = new ArrayList<>();
         
         //for each ship in ship list
         for (Ship ship: board.getShipList()){
             //for each ship that belongs to either player or computer
-            if ((ship.isComputer() == isComputer) 
+            if ((ship.isPlayer2() == isPlayer2)
                     && !ship.isKilled()){
                 
                 //for a range of x values centered on the ships spot and limited by it's range
@@ -91,7 +97,7 @@ public class ComputerPlayer extends Player{
                                 && isInRange(x, y, ship.spot.getX(), ship.spot.getY(), ship.getMovementRange())){
                             
                             //adds a move of type Move
-                            Move m = new Move(isComputer, ship.spot, targetSpot, ship, targetShip, MoveType.MOVE);
+                            Move m = new Move(isMax, ship.spot, targetSpot, ship, targetShip, MoveType.MOVE);
                             allMoves.add(m);
                         }
 
@@ -103,7 +109,7 @@ public class ComputerPlayer extends Player{
                             
                             //if current ship can repair, both ships are owned by the same player, and the target isn't instance of carrier and is missing health
                             if (ship.getCanRepair() 
-                                    && (targetShip.isComputer() == isComputer)
+                                    && (targetShip.isPlayer2() == isMax)
                                     && !(targetShip instanceof Carrier) 
                                     && targetShip.getHealth() < targetShip.getMaxHealth()){
                                 //set move type to Repair
@@ -111,7 +117,7 @@ public class ComputerPlayer extends Player{
                             }
                             
                             //if current ship can attack and target ship is not owned by the same player
-                            else if (ship.getCanAttack() && (targetShip.isComputer() != isComputer)){
+                            else if (ship.getCanAttack() && (targetShip.isPlayer2() != isMax)){
                                 //set more type to Attack
                                 type = MoveType.ATTACK;
                             }
@@ -122,7 +128,7 @@ public class ComputerPlayer extends Player{
                             }
                             
                             //generate a Move and add it to the list
-                            Move m = new Move(isComputer, ship.spot, targetSpot, ship, targetShip, type);
+                            Move m = new Move(isMax, ship.spot, targetSpot, ship, targetShip, type);
                             allMoves.add(m);
                         }
                     }
@@ -170,18 +176,18 @@ public class ComputerPlayer extends Player{
         
         for (Ship s : board.getShipList()){
             if (!s.isKilled()){
-                if (s.isComputer()){
+                if (s.isPlayer2()){
                     totalValue += s.value * ((float)s.getHealth()/(float)s.getMaxHealth());
                 }
                 else {
-                    totalValue -= s.value * ((float)s.getHealth()/(float)s.getMaxHealth());
+                    totalValue -= s.value * ((float)s.getHealth()/(float)s.getMaxHealth()) * 2;
                 }
             }
         }
         return totalValue;
     }
     
-    private int minimax(int targetDepth, int depth, boolean isComputer, int alpha, int beta){
+    private int minimax(int targetDepth, int depth, boolean isPlayer2, int alpha, int beta){
         switch (game.evaluateGameState()){
             case COMPUTER_WIN:
                 return Integer.MAX_VALUE;
@@ -193,14 +199,14 @@ public class ComputerPlayer extends Player{
             return evaluateBoardState();
         }
         
-        if (isComputer){
+        if (isPlayer2){
             int best = Integer.MIN_VALUE;
-            ArrayList<Move> moves = getMoves(isComputer);
+            ArrayList<Move> moves = getMoves(isPlayer2);
             for (Move m : moves){
                 
                 applyMove(m);
                 
-                int current = minimax(targetDepth, depth+1, !isComputer, alpha, beta);
+                int current = minimax(targetDepth, depth+1, !isPlayer2, alpha, beta);
                 
                 //System.out.println(m.toString() + Integer.toString(current));
                 
@@ -217,12 +223,12 @@ public class ComputerPlayer extends Player{
         }
         else {
             int best = Integer.MAX_VALUE;
-            ArrayList<Move> moves = getMoves(isComputer);
+            ArrayList<Move> moves = getMoves(isPlayer2);
             for (Move m : moves){
                 
                 applyMove(m);
                 
-                int current = minimax(targetDepth, depth+1, !isComputer, alpha, beta);
+                int current = minimax(targetDepth, depth+1, !isPlayer2, alpha, beta);
                 
                 //System.out.println(m.toString() + Integer.toString(current));
                 
@@ -246,13 +252,13 @@ public class ComputerPlayer extends Player{
         for (Move m : moves){
             applyMove(m);
             
-            int moveValue = minimax(4, 0, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            int moveValue = minimax(5, 0, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
             
             //System.out.println(m.toString() + Integer.toString(moveValue));
             
             reverseMove(m);
             
-            if (moveValue > highestValue){
+            if ((isPlayer2 ? moveValue < highestValue : moveValue > highestValue)){
                 highestValue = moveValue;
                 highestMove = m;
             }
@@ -264,6 +270,6 @@ public class ComputerPlayer extends Player{
     
     @Override
     public String toString(){
-        return "ComputerPlayer";
+        return "Player2Computer";
     }
 }
