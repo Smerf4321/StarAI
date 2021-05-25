@@ -14,7 +14,7 @@ public class Carrier extends Ship{
     static boolean canAttack = false;
     static boolean canRepair = true;
     static String shipTexture;
-    static int value = 25;
+    static int value = 10;
     
     /**
      * Carrier constructor

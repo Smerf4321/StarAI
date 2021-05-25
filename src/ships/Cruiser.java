@@ -15,7 +15,7 @@ public class Cruiser extends Ship{
     static boolean canAttack = true;
     static boolean canRepair = false;
     static String shipTexture;
-    static int value = 3;
+    static int value = 5;
     
     /**
      * Cruiser constructor

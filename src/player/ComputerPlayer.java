@@ -136,11 +136,13 @@ public class ComputerPlayer extends Player{
         int totalValue = 0;
         
         for (Ship s : board.getShipList()){
-            if (s.isComputer()){
-                totalValue += s.value;
-            }
-            else {
-                totalValue -= s.value;
+            if (!s.isKilled()){
+                if (s.isComputer()){
+                    totalValue += s.value * (s.getHealth()/s.getMaxHealth());
+                }
+                else {
+                    totalValue -= s.value * (s.getHealth()/s.getMaxHealth());
+                }
             }
         }
 
@@ -149,15 +151,6 @@ public class ComputerPlayer extends Player{
     
     private int minimax(int targetDepth, int depth, boolean isComputer, int alpha, int beta){
         int value = evaluateBoardState();
-        
-        switch (game.evaluateGameState()){
-            case HUMAN_WIN:
-                return value;
-            case COMPUTER_WIN:
-                return value;
-            default:
-                break;
-        }
         
         if (depth >= targetDepth){
             return value;
@@ -184,9 +177,13 @@ public class ComputerPlayer extends Player{
             int best = 9999;
             
             for (Move m : getMoves(!isComputer)){
+                //move to next node
                 applyMove(m);
+                //get the value of that node
                 int current = minimax(targetDepth, depth+1, !isComputer, alpha, beta);
+                //compare the current node value with the best
                 best = Math.min(best, current);
+                
                 beta = Math.min(beta, best);
                 reverseMove(m);
                 
@@ -205,7 +202,7 @@ public class ComputerPlayer extends Player{
         
         for (Move m : moves){
             applyMove(m);
-            int moveValue = minimax(4, 0, true, -9999, 9999);
+            int moveValue = minimax(4, 0, false, -9999, 9999);
             reverseMove(m);
             
             if (moveValue > highestValue){

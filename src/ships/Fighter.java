@@ -14,7 +14,7 @@ public class Fighter extends Ship{
     static int damage = 1;
     static boolean canAttack = true;
     static boolean canRepair = false;
-    static int value = 1;
+    static int value = 2;
 
     /**
      * Fighter constructor
