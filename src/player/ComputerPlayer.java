@@ -67,13 +67,15 @@ public class ComputerPlayer extends Player{
         ArrayList<Move> allMoves = new ArrayList<>();
         
         for (Ship ship: board.getShipList()){
-            if ((ship.isComputer() == isComputer) && !ship.isKilled()){
+            if ((ship.isComputer() == isComputer) 
+                    && !ship.isKilled()){
                 for (int x = 0; x < board.getWidth(); x++){
                     for (int y = 0; y < board.getHeight(); y++){
                         Ship targetShip = board.getShipAt(x, y);
                         Spot targetSpot = board.getMap()[x][y];
 
-                        if ((targetShip == null || targetShip.isKilled()) && isInRange(x, y, Math.round(ship.spot.getX()/128), Math.round(ship.spot.getY()/128), ship.getMovementRange())){
+                        if ((targetShip == null || targetShip.isKilled()) 
+                                && isInRange(x, y, Math.round(ship.spot.getX()/128), Math.round(ship.spot.getY()/128), ship.getMovementRange())){
                             allMoves.add(new Move(this, ship.spot, targetSpot, ship, targetShip, MoveType.MOVE));
                         }
 
@@ -81,10 +83,14 @@ public class ComputerPlayer extends Player{
                                 && !targetShip.isKilled() 
                                 && isInRange(x, y, Math.round(ship.spot.getX()/128), Math.round(ship.spot.getY()/128), ship.getWeaponsRange())){
                             MoveType type = null;
-                            if (ship.getCanRepair() && targetShip.isComputer() && !(targetShip instanceof Carrier) && targetShip.getHealth() < targetShip.getMaxHealth()){
+                            if (ship.getCanRepair() 
+                                    && (ship.isComputer() == isComputer)
+                                    && !(targetShip instanceof Carrier) 
+                                    && targetShip.getHealth() < targetShip.getMaxHealth()){
                                 type = MoveType.REPAIR;
                             }
-                            else if (ship.getCanAttack() && !targetShip.isComputer()){
+                            else if (ship.getCanAttack() 
+                                    && (ship.isComputer() == isComputer)){
                                 type = MoveType.ATTACK;
                             }
                             else {
@@ -151,9 +157,19 @@ public class ComputerPlayer extends Player{
     private int minimax(int targetDepth, int depth, boolean isComputer, int alpha, int beta){
         switch (game.evaluateGameState()){
             case COMPUTER_WIN:
-                return 100;
+                if (isComputer){
+                    return 100;
+                }
+                else {
+                    return -100;
+                }
             case HUMAN_WIN:
-                return -100;
+                if (isComputer){
+                    return -100;
+                }
+                else {
+                    return 100;
+                }
         }
         
         if (depth >= targetDepth){
