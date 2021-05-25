@@ -25,7 +25,6 @@ public abstract class Player {
      */
     protected boolean isInRange(int targetX, int targetY, int currentX, int currentY, int range){
         boolean a = (Math.abs(targetX - currentX) + Math.abs(targetY - currentY) <= range);
-        System.out.println(a);
         return a;
     }
 

@@ -8,7 +8,6 @@ import mechanics.Move;
 import mechanics.MoveType;
 import ships.Ship;
 import java.util.Random;
-import ships.Carrier;
 
 /**
  * This is a concrete implementation of a computer controller player
@@ -147,7 +146,7 @@ public class ComputerPlayer extends Player{
         return totalValue;
     }
     
-    private int minimax(int targetDepth, int depth, boolean isComputer){
+    private int minimax(int targetDepth, int depth, boolean isComputer, int alpha, int beta){
         int value = evaluateBoardState();
         
         switch (game.evaluateGameState()){
@@ -155,8 +154,8 @@ public class ComputerPlayer extends Player{
                 return value;
             case COMPUTER_WIN:
                 return value;
-            case ACTIVE:
-                break;   
+            default:
+                break;
         }
         
         if (depth >= targetDepth){
@@ -168,8 +167,14 @@ public class ComputerPlayer extends Player{
             
             for (Move m : getMoves(isComputer)){
                 applyMove(m);
-                best = Math.max(best, minimax(targetDepth, depth+1, !isComputer));
+                int current = minimax(targetDepth, depth+1, !isComputer, alpha, beta);
+                best = Math.max(best, current);
+                alpha = Math.max(alpha, best);
                 reverseMove(m);
+                
+                if (beta <= alpha){
+                    break;
+                }
             }
             
             return best;
@@ -179,8 +184,14 @@ public class ComputerPlayer extends Player{
             
             for (Move m : getMoves(!isComputer)){
                 applyMove(m);
-                best = Math.min(best, minimax(targetDepth, depth+1, !isComputer));
+                int current = minimax(targetDepth, depth+1, !isComputer, alpha, beta);
+                best = Math.min(best, current);
+                beta = Math.min(beta, best);
                 reverseMove(m);
+                
+                if (beta <= alpha){
+                    break;
+                }
             }
             
             return best;
@@ -193,7 +204,7 @@ public class ComputerPlayer extends Player{
         
         for (Move m : moves){
             applyMove(m);
-            int moveValue = minimax(2, 0, true);
+            int moveValue = minimax(2, 0, true, -9999, 9999);
             reverseMove(m);
             
             if (moveValue > highestValue){
