@@ -23,9 +23,6 @@ public class BoardGUI {
         while(!Display.isCloseRequested()){
             Clock.update();
             
-            board.Draw();
-            Display.update();
-            
             human.Update();
             
             board.Draw();
