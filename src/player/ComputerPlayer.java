@@ -3,6 +3,7 @@ package player;
 import board.Board;
 import board.Spot;
 import java.util.ArrayList;
+import java.util.Collections;
 import mechanics.Game;
 import mechanics.Move;
 import mechanics.MoveType;
@@ -34,6 +35,7 @@ public class ComputerPlayer extends Player{
     public void Update() {
         if (game.isTurnMine(isPlayer2)){
             ArrayList<Move> moves = getMoves(isPlayer2);
+            Collections.shuffle(moves);
             Move move = findBestMinimax(moves);
 
             applyMove(move);
@@ -202,6 +204,7 @@ public class ComputerPlayer extends Player{
         if (isPlayer2){
             int best = Integer.MIN_VALUE;
             ArrayList<Move> moves = getMoves(isPlayer2);
+            Collections.shuffle(moves);
             for (Move m : moves){
                 
                 applyMove(m);
@@ -224,6 +227,7 @@ public class ComputerPlayer extends Player{
         else {
             int best = Integer.MAX_VALUE;
             ArrayList<Move> moves = getMoves(isPlayer2);
+            Collections.shuffle(moves);
             for (Move m : moves){
                 
                 applyMove(m);

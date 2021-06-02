@@ -19,8 +19,8 @@ public class Game {
     private final Board board;
     private boolean isCurrentP2;
     private GameState state;
-    private int boardWidth = 7;
-    private int boardHeight = 5;
+    private int boardWidth = 9;
+    private int boardHeight = 7;
     private Player p1;
     private Player p2;
     
@@ -31,7 +31,7 @@ public class Game {
      */
     public Game (){
         board = new Board(boardWidth, boardHeight);
-        p1 = new ComputerPlayer(false, board, this);
+        p1 = new HumanPlayer(board, this);
         p2 = new ComputerPlayer(true, board, this);
         players = new Player[]{p1, p2};
         isCurrentP2 = false;
