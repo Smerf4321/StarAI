@@ -141,6 +141,7 @@ public class ComputerPlayer extends Player{
         return allMoves;
     }
     
+    //Legacy method for very simple move prioritisation
     private Move bestMoveChooser(ArrayList<Move> moves){
         Move highestMove = null;
         for (Move m : moves){
