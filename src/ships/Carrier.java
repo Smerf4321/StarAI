@@ -21,8 +21,8 @@ public class Carrier extends Ship{
      * @param computer whether the ship is controlled by a computer
      * @param spot spot where the ship is
      */
-    public Carrier(boolean isPlayer2, Spot spot) {
-        super(isPlayer2, Carrier.maxHealth, Carrier.damage, canAttack, canRepair, Carrier.movementRange, Carrier.weaponsRange, getTexture(isPlayer2), spot, value);
+    public Carrier(boolean computer, Spot spot) {
+        super(computer, Carrier.maxHealth, Carrier.damage, canAttack, canRepair, Carrier.movementRange, Carrier.weaponsRange, getTexture(computer), spot, value);
     }
     
     /**
@@ -30,8 +30,8 @@ public class Carrier extends Ship{
      * @param computer whether the ship belongs to the computer
      * @return texture name as string
      */
-    private static String getTexture(boolean isPlayer2){
-        if (isPlayer2){
+    private static String getTexture(boolean computer){
+        if (computer){
             return "ECarrier128";
         }
         else {
