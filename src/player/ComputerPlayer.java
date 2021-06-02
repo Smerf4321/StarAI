@@ -35,7 +35,7 @@ public class ComputerPlayer extends Player{
     public void Update() {
         if (game.isTurnMine(isPlayer2)){
             ArrayList<Move> moves = getMoves(isPlayer2);
-            Collections.shuffle(moves);
+            //Collections.shuffle(moves);
             Move move = findBestMinimax(moves);
 
             applyMove(move);
@@ -205,7 +205,7 @@ public class ComputerPlayer extends Player{
         if (isPlayer2){
             int best = Integer.MIN_VALUE;
             ArrayList<Move> moves = getMoves(isPlayer2);
-            Collections.shuffle(moves);
+            //Collections.shuffle(moves);
             for (Move m : moves){
                 
                 applyMove(m);
@@ -228,7 +228,7 @@ public class ComputerPlayer extends Player{
         else {
             int best = Integer.MAX_VALUE;
             ArrayList<Move> moves = getMoves(isPlayer2);
-            Collections.shuffle(moves);
+            //Collections.shuffle(moves);
             for (Move m : moves){
                 
                 applyMove(m);
@@ -257,7 +257,7 @@ public class ComputerPlayer extends Player{
         for (Move m : moves){
             applyMove(m);
             
-            int moveValue = minimax(5, 0, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            int moveValue = minimax(4, 0, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
             
             //System.out.println(m.toString() + Integer.toString(moveValue));
             
