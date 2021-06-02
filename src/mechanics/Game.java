@@ -19,7 +19,7 @@ public class Game {
     private final Board board;
     private int currentTurn;
     private GameState state;
-    private int boardWidth = 8;
+    private int boardWidth = 9;
     private int boardHeight = 7;
     private Player p1;
     private Player p2;
