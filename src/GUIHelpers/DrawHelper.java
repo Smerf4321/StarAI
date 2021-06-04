@@ -43,6 +43,7 @@ public class DrawHelper {
         glMatrixMode(GL_MODELVIEW);
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
+        glDisable(GL_DEPTH_TEST);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
     
@@ -62,6 +63,16 @@ public class DrawHelper {
         glEnd();
     }
     
+    public static void DrawColorQuad(float startX, float startY, float width, float height){
+        glBegin(GL_QUADS);
+        glColor4f(0,1f,0, 1);
+        glVertex2f(startX, startY); //Top left
+        glVertex2f(startX + width, startY); //Top right
+        glVertex2f(startX + width, startY + height); //Bottom Right
+        glVertex2f(startX, startY + height); //Bottom Left
+        glEnd();
+    }
+    
     /**
      * Draws a quad with a texture binded
      * @param texture of the graphical object
@@ -72,6 +83,7 @@ public class DrawHelper {
      */
     public static void DrawQuadTexture(Texture texture, float startX, float startY, float width, float height){
         texture.bind();
+        glColor3f(1f,1f,1f); // sets the color to white
         glTranslatef(startX, startY, 0);
         glBegin(GL_QUADS);
         

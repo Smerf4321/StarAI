@@ -18,6 +18,7 @@ public class Cruiser extends Ship{
     static boolean canRepair = false;
     static String shipTexture;
     static int value = 5;
+    static HealthBar hpBar = new HealthBar();
     
     /**
      * Cruiser constructor
@@ -25,8 +26,19 @@ public class Cruiser extends Ship{
      * @param spot spot where the ship is
      */
     public Cruiser(boolean computer, Spot spot) {
-        super(computer, Cruiser.maxHealth, Cruiser.damage, Cruiser.repair, canAttack, canRepair, Cruiser.movementRange, Cruiser.weaponsRange, Cruiser.repairRange, getTexture(computer), spot, value);
-        
+        super(computer,
+                Cruiser.maxHealth,
+                Cruiser.damage,
+                Cruiser.repair,
+                canAttack,
+                canRepair,
+                Cruiser.movementRange,
+                Cruiser.weaponsRange,
+                Cruiser.repairRange,
+                getTexture(computer),
+                spot,
+                value,
+                hpBar);
     }
     
     /**

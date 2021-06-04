@@ -15,7 +15,7 @@ public final class Board implements Drawable{
     private int width;
     private Spot[][] map;
     private ArrayList<Ship> ships;
-    //private Background background;
+    private Background background;
     
     /**
      * Initialises the board
@@ -25,7 +25,7 @@ public final class Board implements Drawable{
     public Board(int width, int height){
         this.height = height;
         this.width = width;
-        //background = new Background();
+        background = new Background();
         setMap();
     }
     
@@ -68,7 +68,7 @@ public final class Board implements Drawable{
      * Loades all of the textures used for this board
      */
     public void loadTexture(){
-        //background.loadTexture();
+        background.loadTexture();
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
                 Spot spot = map[x][y];

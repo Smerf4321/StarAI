@@ -44,7 +44,19 @@ public abstract class Ship implements Drawable{
      * @param shipTextureName name of the ships texture
      * @param spot spot where the ship is
      */
-    public Ship (boolean computer, int maxHealth, int weaponsDamage, int repair, boolean canAttack, boolean canRepair, int movementRange, int weaponsRange, int repairRange, String shipTextureName, Spot spot, int value){
+    public Ship (boolean computer,
+            int maxHealth,
+            int weaponsDamage,
+            int repair,
+            boolean canAttack,
+            boolean canRepair,
+            int movementRange,
+            int weaponsRange,
+            int repairRange,
+            String shipTextureName,
+            Spot spot, 
+            int value,
+            HealthBar hpBar){
         this.computer = computer;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
@@ -58,7 +70,7 @@ public abstract class Ship implements Drawable{
         this.shipTextureName = shipTextureName;
         this.spot = spot;
         this.value = value;
-        this.hpBar = new HealthBar(spot.getX()*128, spot.getY()*128, maxHealth, currentHealth);
+        this.hpBar = hpBar;
     }
     
     public void setComputer (boolean computer){
@@ -158,8 +170,8 @@ public abstract class Ship implements Drawable{
      * Draws the ship at the coordinates of it's spot
      */
     public void Draw(){
+        hpBar.Draw(spot.getX(), spot.getY());
         DrawQuadTexture(shipTexture, spot.getX()*128, spot.getY()*128, 128, 128);
-        hpBar.Draw();
     }
     
     /**

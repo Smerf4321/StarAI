@@ -4,6 +4,7 @@ import GUIHelpers.Clock;
 import static GUIHelpers.DrawHelper.*;
 import board.Board;
 import org.lwjgl.opengl.Display;
+import static org.lwjgl.opengl.GL11.*;
 import player.Player;
 
 
@@ -21,14 +22,14 @@ public class BoardGUI {
         
         //Loop that constantly updates the graphical interface
         while(!Display.isCloseRequested()){
-            //glClear(GL_COLOR_BUFFER_BIT);
+            glClear(GL_COLOR_BUFFER_BIT);
             Clock.update();
             
-            human.Update();
             computer.Update();
+            human.Update();
             board.Draw();
-            Display.update();
             
+            Display.update();
             Display.sync(60);
         }
         

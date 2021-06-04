@@ -17,6 +17,7 @@ public class Carrier extends Ship{
     static boolean canRepair = true;
     static String shipTexture;
     static int value = 10;
+    static HealthBar hpBar = new HealthBar();
     
     /**
      * Carrier constructor
@@ -24,8 +25,21 @@ public class Carrier extends Ship{
      * @param spot spot where the ship is
      */
     public Carrier(boolean computer, Spot spot) {
-        super(computer, Carrier.maxHealth, Carrier.damage, Carrier.repair, canAttack, canRepair, Carrier.movementRange, Carrier.weaponsRange, Carrier.repairRange, getTexture(computer), spot, value);
+        super(computer,
+                Carrier.maxHealth,
+                Carrier.damage,
+                Carrier.repair,
+                canAttack,
+                canRepair,
+                Carrier.movementRange,
+                Carrier.weaponsRange,
+                Carrier.repairRange,
+                getTexture(computer),
+                spot, 
+                value, 
+                hpBar);
     }
+    
     
     /**
      * Returns the texture based on the player controlling the ship
