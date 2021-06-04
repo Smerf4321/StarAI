@@ -92,6 +92,13 @@ public final class Board implements Drawable{
                 spot.Draw();
             }
         }    
+        
+        ships.forEach((ship) -> {
+            if (!ship.isKilled()){
+                ship.DrawHP();
+            }
+        });
+        
         ships.forEach((ship) -> {
             if (!ship.isKilled()){
                 ship.Draw();

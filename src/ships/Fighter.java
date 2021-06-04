@@ -8,7 +8,7 @@ import board.Spot;
  */
 public class Fighter extends Ship{
 
-    static int maxHealth = 3;
+    static int maxHealth = 6;
     static int movementRange = 3;
     static int weaponsRange = 1;
     static int repairRange = 0;

@@ -63,9 +63,16 @@ public class DrawHelper {
         glEnd();
     }
     
-    public static void DrawColorQuad(float startX, float startY, float width, float height){
+    /**
+     * Draws a quad, structure with 4 coordinates and fills it with colour
+     * @param startX top left x-coord
+     * @param startY top left y-coord
+     * @param width of the quad
+     * @param height of the quad
+     */
+    public static void DrawColorQuad(float red, float green, float blue, float startX, float startY, float width, float height){
         glBegin(GL_QUADS);
-        glColor4f(0,1f,0, 1);
+        glColor4f(red, green, blue, 1);
         glVertex2f(startX, startY); //Top left
         glVertex2f(startX + width, startY); //Top right
         glVertex2f(startX + width, startY + height); //Bottom Right
