@@ -21,15 +21,11 @@ public class BoardGUI {
         
         //Loop that constantly updates the graphical interface
         while(!Display.isCloseRequested()){
+            //glClear(GL_COLOR_BUFFER_BIT);
             Clock.update();
             
             human.Update();
-            
-            board.Draw();
-            Display.update();
-            
             computer.Update();
-            
             board.Draw();
             Display.update();
             

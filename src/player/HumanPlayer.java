@@ -103,10 +103,10 @@ public class HumanPlayer extends Player{
                         targetSpot.getY(), 
                         currentShip.spot.getX(), 
                         currentShip.spot.getY(),  
-                        currentShip.getWeaponsRange())){
+                        currentShip.getRepairRange())){
                     
                     //Repairs the targeted ship
-                    clickedShip.repair(currentShip.getWeaponsDamage());
+                    clickedShip.repair(currentShip.getRepair());
                     
                     endTurn();
                 }

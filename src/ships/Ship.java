@@ -18,10 +18,13 @@ public abstract class Ship implements Drawable{
     private int currentHealth;
     private final int movementRange;
     private final int weaponsRange;
+    private final int repairRange;
     private final int weaponsDamage;
+    private final int repair;
     private String shipTextureName;
     private Texture shipTexture;
     public int value;
+    private HealthBar hpBar;
     
     //boolean that define whether the ship have acted this turn
     private boolean initiative = false;
@@ -41,18 +44,21 @@ public abstract class Ship implements Drawable{
      * @param shipTextureName name of the ships texture
      * @param spot spot where the ship is
      */
-    public Ship (boolean computer, int maxHealth, int weaponsDamage, boolean canAttack, boolean canRepair, int movementRange, int weaponsRange, String shipTextureName, Spot spot, int value){
+    public Ship (boolean computer, int maxHealth, int weaponsDamage, int repair, boolean canAttack, boolean canRepair, int movementRange, int weaponsRange, int repairRange, String shipTextureName, Spot spot, int value){
         this.computer = computer;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.movementRange = movementRange;
         this.weaponsRange = weaponsRange;
+        this.repairRange = repairRange;
         this.weaponsDamage = weaponsDamage;
+        this.repair = repair;
         this.canAttack = canAttack;
         this.canRepair = canRepair;
         this.shipTextureName = shipTextureName;
         this.spot = spot;
         this.value = value;
+        this.hpBar = new HealthBar(spot.getX()*128, spot.getY()*128, maxHealth, currentHealth);
     }
     
     public void setComputer (boolean computer){
@@ -81,6 +87,14 @@ public abstract class Ship implements Drawable{
     
     public int getWeaponsDamage(){
         return weaponsDamage;
+    }
+    
+    public int getRepairRange(){
+        return repairRange;
+    }
+    
+    public int getRepair(){
+        return repair;
     }
     
     public boolean getInitiative(){
@@ -145,6 +159,7 @@ public abstract class Ship implements Drawable{
      */
     public void Draw(){
         DrawQuadTexture(shipTexture, spot.getX()*128, spot.getY()*128, 128, 128);
+        hpBar.Draw();
     }
     
     /**

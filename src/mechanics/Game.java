@@ -109,11 +109,11 @@ public class Game {
             //checks if either of the carriers are destroyed and changes gamestate accordingly
             if ((s instanceof Carrier) && s.isKilled()){
                 if (s.isComputer()){
-                    System.out.println("HUMAN WIN");
+                    //System.out.println("HUMAN WIN");
                     return GameState.HUMAN_WIN;
                 }
                 else {
-                    System.out.println("COMPUTER WIN");
+                    //System.out.println("COMPUTER WIN");
                     return GameState.COMPUTER_WIN;
                 }
             }

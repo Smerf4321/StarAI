@@ -7,11 +7,13 @@ import board.Spot;
  * @author Patryk
  */
 public class Carrier extends Ship{
-    static int maxHealth = 3;
+    static int maxHealth = 9;
     static int movementRange = 1;
-    static int weaponsRange = 2;
-    static int damage = 1;
-    static boolean canAttack = false;
+    static int weaponsRange = 1;
+    static int repairRange = 2;
+    static int damage = 3;
+    static int repair = 1;
+    static boolean canAttack = true;
     static boolean canRepair = true;
     static String shipTexture;
     static int value = 10;
@@ -22,7 +24,7 @@ public class Carrier extends Ship{
      * @param spot spot where the ship is
      */
     public Carrier(boolean computer, Spot spot) {
-        super(computer, Carrier.maxHealth, Carrier.damage, canAttack, canRepair, Carrier.movementRange, Carrier.weaponsRange, getTexture(computer), spot, value);
+        super(computer, Carrier.maxHealth, Carrier.damage, Carrier.repair, canAttack, canRepair, Carrier.movementRange, Carrier.weaponsRange, Carrier.repairRange, getTexture(computer), spot, value);
     }
     
     /**

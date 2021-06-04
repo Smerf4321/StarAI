@@ -8,10 +8,12 @@ import board.Spot;
  */
 public class Fighter extends Ship{
 
-    static int maxHealth = 1;
+    static int maxHealth = 3;
     static int movementRange = 3;
     static int weaponsRange = 1;
-    static int damage = 1;
+    static int repairRange = 0;
+    static int damage = 3;
+    static int repair = 0;
     static boolean canAttack = true;
     static boolean canRepair = false;
     static int value = 2;
@@ -22,7 +24,7 @@ public class Fighter extends Ship{
      * @param spot spot where the ship is
      */
     public Fighter(boolean computer, Spot spot) {
-        super(computer, Fighter.maxHealth, Fighter.damage, canAttack, canRepair, Fighter.movementRange, Fighter.weaponsRange, getTexture(computer), spot, value);
+        super(computer, Fighter.maxHealth, Fighter.damage, Fighter.repair, canAttack, canRepair, Fighter.movementRange, Fighter.weaponsRange, Fighter.repairRange, getTexture(computer), spot, value);
     }
     
     /**

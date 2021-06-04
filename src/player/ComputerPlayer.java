@@ -47,7 +47,7 @@ public class ComputerPlayer extends Player{
                     move.target.damage(move.ship.getWeaponsDamage());
                     break;
                 case REPAIR:
-                    move.target.repair(move.ship.getWeaponsDamage());
+                    move.target.repair(move.ship.getRepair());
             }
     }
     
@@ -61,7 +61,7 @@ public class ComputerPlayer extends Player{
                     move.target.repair(move.ship.getWeaponsDamage());
                     break;
                 case REPAIR:
-                    move.target.damage(move.ship.getWeaponsDamage());
+                    move.target.damage(move.ship.getRepair());
             }
     }
     
@@ -99,21 +99,23 @@ public class ComputerPlayer extends Player{
 
                         //if there is a ship and it's not killed and is in range of weapons
                         if (targetShip != null 
-                                && !targetShip.isKilled() 
-                                && isInRange(x, y, ship.spot.getX(),ship.spot.getY(), ship.getWeaponsRange())){
+                                && !targetShip.isKilled()){
                             MoveType type = null;
                             
                             //if current ship can repair, both ships are owned by the same player, and the target isn't instance of carrier and is missing health
                             if (ship.getCanRepair() 
                                     && (targetShip.isComputer() == isComputer)
                                     && !(targetShip instanceof Carrier) 
-                                    && targetShip.getHealth() < targetShip.getMaxHealth()){
+                                    && targetShip.getHealth() < targetShip.getMaxHealth()
+                                    && isInRange(x, y, ship.spot.getX(),ship.spot.getY(), ship.getRepairRange())){
                                 //set move type to Repair
                                 type = MoveType.REPAIR;
                             }
                             
                             //if current ship can attack and target ship is not owned by the same player
-                            else if (ship.getCanAttack() && (targetShip.isComputer() != isComputer)){
+                            else if (ship.getCanAttack() 
+                                    && (targetShip.isComputer() != isComputer) 
+                                    && isInRange(x, y, ship.spot.getX(),ship.spot.getY(), ship.getWeaponsRange())){
                                 //set more type to Attack
                                 type = MoveType.ATTACK;
                             }
@@ -186,9 +188,9 @@ public class ComputerPlayer extends Player{
     private int minimax(int targetDepth, int depth, boolean isComputer, int alpha, int beta){
         switch (game.evaluateGameState()){
             case COMPUTER_WIN:
-                return Integer.MAX_VALUE;
+                return 1000;
             case HUMAN_WIN:
-                return Integer.MIN_VALUE;
+                return -1000;
         }
         
         if (depth >= targetDepth){
@@ -252,7 +254,7 @@ public class ComputerPlayer extends Player{
             
             int moveValue = minimax(4, 0, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
             
-            //System.out.println(m.toString() + Integer.toString(moveValue));
+            System.out.println(m.toString() + Integer.toString(moveValue));
             
             reverseMove(m);
             
@@ -262,7 +264,7 @@ public class ComputerPlayer extends Player{
             }
         }
         
-        //System.out.println("Highest:" + Integer.toString(highestValue));
+        System.out.println("Highest:" + Integer.toString(highestValue));
         return highestMove;
     }
     
